@@ -1,4 +1,4 @@
-﻿namespace HotelReservations.BusinessLayer.Entities
+﻿namespace HotelReservations.Data.Entities
 {
     public interface IEntity<T>
     {

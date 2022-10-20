@@ -1,4 +1,6 @@
-﻿namespace HotelReservations.BusinessLayer.Entities
+﻿using HotelReservations.Models;
+
+namespace HotelReservations.Data.Entities
 {
     public class Entity<T> : IEntity<T>
     {

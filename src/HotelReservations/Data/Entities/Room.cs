@@ -1,6 +1,6 @@
-﻿using HotelReservations.BusinessLayer.Entities.Enums;
+﻿using HotelReservations.Data.Entities.Enums;
 
-namespace HotelReservations.BusinessLayer.Entities
+namespace HotelReservations.Data.Entities
 {
     public class Room : Entity<int>
     {

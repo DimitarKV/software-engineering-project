@@ -1,7 +1,15 @@
+using HotelReservations.Data.Extensions;
+using HotelReservations.Data.Persistence;
+using HotelReservations.Data.Persistence.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.AddPersistence();
+builder.Services.AddTransient<IHotelDbContext, HotelDbContext>();
+
 
 var app = builder.Build();
 
@@ -23,5 +31,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.EnsureDatabaseCreated();
 
 app.Run();

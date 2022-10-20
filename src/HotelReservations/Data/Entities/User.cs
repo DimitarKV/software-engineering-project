@@ -1,4 +1,4 @@
-﻿namespace HotelReservations.BusinessLayer.Entities
+﻿namespace HotelReservations.Data.Entities
 {
     public class User : Entity<int>
     {

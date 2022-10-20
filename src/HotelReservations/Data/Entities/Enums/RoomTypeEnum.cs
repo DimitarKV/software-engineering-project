@@ -1,4 +1,4 @@
-﻿namespace HotelReservations.BusinessLayer.Entities.Enums
+﻿namespace HotelReservations.Data.Entities.Enums
 {
     public enum RoomTypeEnum
     {

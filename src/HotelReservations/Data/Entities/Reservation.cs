@@ -1,6 +1,8 @@
-﻿namespace HotelReservations.BusinessLayer.Entities
+﻿using HotelReservations.Models;
+
+namespace HotelReservations.Data.Entities
 {
-    public class Reservation
+    public class Reservation : Entity<int>
     {
         public Room Room { get; set; }
         public Client Client { get; set; }
