@@ -1,0 +1,40 @@
+﻿@using System.Runtime.Serialization
+@model ReservationQueryViewModel
+
+<form asp-action="Test" method="post">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Chose destination</span>
+        </div>
+        <div class="custom-file">
+            <input type="text" asp-for="Destination" class="custom-file-input" id="destination">
+            <label class="custom-file-label" for="destination">Chose destination</label>
+        </div>
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Chose date from</span>
+        </div>
+        <div class="custom-file">
+            <input type="date" asp-for="DateFrom" 
+                   min="@DateTime.Now.ToString("yyyy-MM-dd")" class="custom-file-input" id="dateFrom">
+            <label class="custom-file-label" for="dateFrom">Chose date from</label>
+        </div>
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Chose date to</span>
+        </div>
+        <div class="custom-file">
+            <input type="date"  asp-for="DateTo" 
+                   min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")"
+                   class="custom-file-input" id="dateTo">
+            <label class="custom-file-label" for="dateTo">Chose date to</label>
+        </div>
+    </div>
+
+    <p>@DateTime.Now.ToString("yyyy-MM-dd")</p>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

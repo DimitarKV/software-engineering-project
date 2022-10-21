@@ -23,6 +23,12 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult Test(ReservationQueryViewModel viewModel)
+    {
+        Console.WriteLine(viewModel.Destination + " " + viewModel.DateFrom);
+        return View("Index");
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
