@@ -1,40 +1,23 @@
 ﻿@using System.Runtime.Serialization
 @model ReservationQueryViewModel
 
-<form asp-action="Test" method="post">
+<form asp-action="Test" method="post" class="mb-3">
     <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text">Chose destination</span>
-        </div>
-        <div class="custom-file">
-            <input type="text" asp-for="Destination" class="custom-file-input" id="destination">
-            <label class="custom-file-label" for="destination">Chose destination</label>
-        </div>
+        <span class="input-group-text">Choose destination</span>
+        <input type="text" class="form-control" asp-for="Destination" id="destination">
     </div>
 
     <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text">Chose date from</span>
-        </div>
-        <div class="custom-file">
-            <input type="date" asp-for="DateFrom" 
-                   min="@DateTime.Now.ToString("yyyy-MM-dd")" class="custom-file-input" id="dateFrom">
-            <label class="custom-file-label" for="dateFrom">Chose date from</label>
-        </div>
+        <span class="input-group-text">Choose date from</span>
+        <input type="date" class="form-control" asp-for="DateFrom"
+               min="@DateTime.Now.ToString("yyyy-MM-dd")" class="custom-file-input" id="dateFrom">
     </div>
 
     <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text">Chose date to</span>
-        </div>
-        <div class="custom-file">
-            <input type="date"  asp-for="DateTo" 
-                   min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")"
-                   class="custom-file-input" id="dateTo">
-            <label class="custom-file-label" for="dateTo">Chose date to</label>
-        </div>
+        <span class="input-group-text">Choose date to</span>
+        <input type="date" asp-for="DateTo"
+               min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")"
+               class="form-control" id="dateTo">
     </div>
-
-    <p>@DateTime.Now.ToString("yyyy-MM-dd")</p>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="col-12 btn btn-info text-dark">Submit</button>
 </form>
