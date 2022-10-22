@@ -3,15 +3,15 @@
 
 <div class="search-form">
     <form asp-action="Test" method="post" class="mb-3 p-3 rounded bg-secondary" id="form">
-        <div class="input-group mb-3">
+        <div class="input-group mb-3 col-12">
             <span class="input-group-text">Choose destination</span>
             <input type="text" class="form-control" asp-for="Destination" id="destination">
         </div>
 
         <div class="input-group mb-3">
             <span class="input-group-text">Choose date from</span>
-            <input type="date" class="form-control" asp-for="DateFrom"
-                   min="@DateTime.Now.ToString("yyyy-MM-dd")" class="custom-file-input" id="dateFrom">
+            <input type="date" asp-for="DateFrom" class="form-control"
+                   min="@DateTime.Now.ToString("yyyy-MM-dd")" id="dateFrom">
         </div>
 
         <div class="input-group mb-3">
