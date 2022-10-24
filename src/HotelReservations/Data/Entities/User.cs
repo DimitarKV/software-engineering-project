@@ -2,11 +2,12 @@
 
 namespace HotelReservations.Data.Entities
 {
-    public class User : Entity<int>
+    public class User : Entity<int> 
     {
         //Identity propperties
         public string Username { get; set; }
         public string Password { get; set; }
+        public string Role { get; set; }
         
         //Mandatory for all user types
         public string FirstName { get; set; }

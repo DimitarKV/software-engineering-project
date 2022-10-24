@@ -2,6 +2,7 @@
 
 namespace HotelReservations.Data.Repositories.Interfaces;
 
-public interface IReservationsRepository
+public interface IUserRepository
 {
+    User? GetUser(string username);
 }
