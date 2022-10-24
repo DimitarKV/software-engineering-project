@@ -23,10 +23,10 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Test(ReservationQueryViewModel viewModel)
+    public IActionResult Search(ReservationQueryViewModel viewModel)
     {
         Console.WriteLine(viewModel.Destination + " " + viewModel.DateFrom);
-        return View("Index");
+        return View(nameof(Index));
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
