@@ -1,6 +1,8 @@
 using HotelReservations.Data.Extensions;
 using HotelReservations.Data.Persistence;
 using HotelReservations.Data.Persistence.Interfaces;
+using Auth0.AspNetCore.Authentication;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

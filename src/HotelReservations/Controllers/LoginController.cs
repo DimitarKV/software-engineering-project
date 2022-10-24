@@ -20,7 +20,7 @@ namespace HotelReservations.Controllers
         public IActionResult Test(LoginViewModel viewModel)
         {
             Console.WriteLine(viewModel.Email + " " + viewModel.Password);
-            return View(nameof(Index));
+            return Redirect("/Home");
         }
     }
 }
