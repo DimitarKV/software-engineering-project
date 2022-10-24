@@ -1,4 +1,8 @@
 ﻿using System.Text;
+using HotelReservations.Data.Repositories;
+using HotelReservations.Data.Repositories.Interfaces;
+using HotelReservations.Services.Security;
+using HotelReservations.Services.Security.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -14,12 +18,7 @@ public static class SecurityExtensions
         var services = builder.Services;
         var configuration = builder.Configuration;
         
-        services.AddAuthentication(o =>
-        {
-            o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            o.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-        }).AddJwtBearer(o =>
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
         {
             o.TokenValidationParameters = new TokenValidationParameters
             {
@@ -36,12 +35,23 @@ public static class SecurityExtensions
             };
             
         });
-
+        services.AddDistributedMemoryCache();
+        services.AddSession();
         services.AddAuthorization();
     }
 
     public static void UseSecurity(this WebApplication app)
     {
+        app.UseSession();
+        app.Use(async (context, next) =>    
+        {
+            var token = context.Session.GetString("Token"); 
+            if (!string.IsNullOrEmpty(token))  
+            {
+                context.Request.Headers.Add("Authorization", "Bearer " + token);
+            }
+            await next();
+        });
         app.UseAuthentication();
         app.UseAuthorization();
         app.UseHttpsRedirection();
