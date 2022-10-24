@@ -1,7 +1,7 @@
 using HotelReservations.Data.Extensions;
 using HotelReservations.Data.Persistence;
 using HotelReservations.Data.Persistence.Interfaces;
-using Auth0.AspNetCore.Authentication;
+using HotelReservations.Extensions;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +11,7 @@ builder.Services.AddControllersWithViews();
 
 builder.AddPersistence();
 builder.Services.AddTransient<IHotelDbContext, HotelDbContext>();
-
+builder.AddSecurity();
 
 var app = builder.Build();
 
@@ -28,12 +28,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.EnsureDatabaseCreated();
 
+app.UseSecurity();
 app.Run();
