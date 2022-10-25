@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using HotelReservations.Data.Entities;
+using HotelReservations.Globals;
 using HotelReservations.Services.Security.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 
@@ -9,9 +10,14 @@ namespace HotelReservations.Services.Security;
 
 public class TokenService : ITokenService
 {
-    private readonly int EXPIRY_DURATION_MINUTES = 10080;
+    private readonly IConfiguration _configuration;
 
-    public string BuildToken(string key, string issuer, User user)
+    public TokenService(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
+
+    public string BuildToken(User user)
     {
         var claims = new[]
         {
@@ -21,16 +27,19 @@ public class TokenService : ITokenService
                 Guid.NewGuid().ToString())
         };
 
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
+        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
-        var tokenDescriptor = new JwtSecurityToken(issuer, issuer, claims,
-            expires: DateTime.Now.AddMinutes(EXPIRY_DURATION_MINUTES), signingCredentials: credentials);
+        var tokenDescriptor = new JwtSecurityToken(_configuration["Jwt:Issuer"], 
+            _configuration["Jwt:Audience"], 
+            claims,
+            expires: DateTime.Now.AddMinutes(GlobalVariables.ExpiryDurationMinutes), 
+            signingCredentials: credentials);
         return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
     }
 
-    public bool ValidateToken(string key, string issuer, string audience, string token)
+    public bool ValidateToken(string token)
     {
-        var mySecret = Encoding.UTF8.GetBytes(key);
+        var mySecret = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
         var mySecurityKey = new SymmetricSecurityKey(mySecret);
         var tokenHandler = new JwtSecurityTokenHandler();
         try
@@ -42,8 +51,8 @@ public class TokenService : ITokenService
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidateLifetime = true,
-                    ValidIssuer = issuer,
-                    ValidAudience = issuer,
+                    ValidIssuer = _configuration["Jwt:Issuer"],
+                    ValidAudience = _configuration["Jwt:Audience"],
                     IssuerSigningKey = mySecurityKey,
                 }, out SecurityToken validatedToken);
         }
