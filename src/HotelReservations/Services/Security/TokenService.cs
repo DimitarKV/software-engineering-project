@@ -17,7 +17,7 @@ public class TokenService : ITokenService
         _configuration = configuration;
     }
 
-    public string BuildToken(User user)
+    public string? BuildToken(User user)
     {
         var claims = new[]
         {
@@ -32,7 +32,7 @@ public class TokenService : ITokenService
         var tokenDescriptor = new JwtSecurityToken(_configuration["Jwt:Issuer"], 
             _configuration["Jwt:Audience"], 
             claims,
-            expires: DateTime.Now.AddMinutes(GlobalVariables.ExpiryDurationMinutes), 
+            expires: DateTime.Now.AddMinutes(GlobalVariables.ExpiryDurationMinutes),
             signingCredentials: credentials);
         return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
     }

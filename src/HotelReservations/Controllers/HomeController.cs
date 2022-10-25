@@ -14,7 +14,6 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    // [Authorize(AuthenticationSchemes = "Bearer")]
     public IActionResult Index()
     {
         return View();

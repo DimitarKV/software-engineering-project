@@ -49,10 +49,11 @@ namespace HotelReservations.Controllers
                     _tokenService.BuildToken(validUser);
                 if (generatedToken is not null)
                 {
-                    Response.Cookies.Append("Token", generatedToken, new CookieOptions()
-                    {
-                        Expires = DateTimeOffset.Now.AddMinutes(GlobalVariables.ExpiryDurationMinutes)
-                    });
+                    // Response.Cookies.Append("Token", generatedToken, new CookieOptions()
+                    // {
+                    //     Expires = DateTimeOffset.Now.AddMinutes(GlobalVariables.ExpiryDurationMinutes)
+                    // });
+                    Response.HttpContext.Session.SetString("Token", generatedToken);
                     return Redirect("/Home");
                 }
                 else

@@ -2,5 +2,5 @@
 
 public static class GlobalVariables
 {
-    public static readonly int ExpiryDurationMinutes = 10080;
+    public static readonly int ExpiryDurationMinutes = 60 * 24 * 7;
 }

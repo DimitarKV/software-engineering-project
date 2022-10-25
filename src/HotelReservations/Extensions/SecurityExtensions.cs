@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using HotelReservations.Globals;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -22,6 +23,7 @@ public static class SecurityExtensions
                 ValidateAudience = true,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
+                ClockSkew = TimeSpan.FromMinutes(GlobalVariables.ExpiryDurationMinutes),
                 ValidIssuer = configuration["Jwt:Issuer"],
                 ValidAudience = configuration["Jwt:Audience"],
                 IssuerSigningKey = new SymmetricSecurityKey
@@ -37,9 +39,9 @@ public static class SecurityExtensions
     public static void UseSecurity(this WebApplication app)
     {
         app.UseSession();
-        app.Use(async (context, next) =>    
+        app.Use(async (context, next) =>
         {
-            var token = context.Request.Cookies["Token"];
+            var token = context.Session.GetString("Token");
             if (!string.IsNullOrEmpty(token))  
             {
                 context.Request.Headers.Add("Authorization", "Bearer " + token);
