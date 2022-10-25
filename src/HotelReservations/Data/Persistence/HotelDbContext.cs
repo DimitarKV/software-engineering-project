@@ -20,4 +20,9 @@ public class HotelDbContext : DbContext, IHotelDbContext
     public HotelDbContext(DbContextOptions options) : base(options)
     {
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<User>(e => e.HasIndex(e => e.Username).IsUnique());
+    }
 }

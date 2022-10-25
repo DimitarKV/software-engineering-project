@@ -1,15 +1,16 @@
-﻿@model LoginViewModel
+﻿@model RegisterViewModel
 
 @{
-    ViewData["Title"] = "Login Page";
+    ViewData["Title"] = "Register";
 }
+
 <div class="container">
     <div class="row">
         <div class="col-4"></div>
         <div class="col-sm-4 my-4">
-            <form method="post" asp-action="Login" class="rounded bg-dark p-5">
+            <form method="post" asp-action="Register" class="rounded bg-dark p-5">
                 <h3 class="text-light text-center mb-4">Reservations.com</h3>
-                <h6 class="text-light text-center">Sign in</h6>
+                <h6 class="text-light text-center">Sign up</h6>
                 <div class="form-group mb-3">
                     <label for="email" class="text-light">Email</label>
                     <input id="email" type="text" asp-for="Username" class="form-control" value="" required/>
@@ -19,11 +20,8 @@
                     <input id="password" type="password" asp-for="Password" class="form-control" required/>
                 </div>
                 <div class="mb-3">
-                    <a href="#" class="hover">Forgot password?</a> 
-                </div>
-                <div class="mb-3">
-                    <span class="text-light">New to Reservations.com?</span>
-                    <a href="/register" class="link-dark text-primary">Sign up here</a>      
+                    <span class="text-light">Already have an account?</span>
+                    <a href="/login" class="link-dark text-primary">Sign in here</a>      
                 </div>
                 <div>
                     <input type="submit" class="btn btn-primary" />

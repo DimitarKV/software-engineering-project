@@ -1,11 +1,6 @@
+using HotelReservations.Data.Entities;
 using HotelReservations.Data.Extensions;
-using HotelReservations.Data.Persistence;
-using HotelReservations.Data.Persistence.Interfaces;
-using HotelReservations.Data.Repositories;
-using HotelReservations.Data.Repositories.Interfaces;
 using HotelReservations.Extensions;
-using HotelReservations.Services.Security;
-using HotelReservations.Services.Security.Interfaces;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,11 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.AddPersistence();
-builder.Services.AddTransient<IHotelDbContext, HotelDbContext>();
-builder.Services.AddTransient<HotelDbContext, HotelDbContext>();
-builder.Services.AddTransient<IUserRepository, UserRepository>();
-builder.Services.AddTransient<ITokenService, TokenService>();
-builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddApplication(new[] {typeof(User).Assembly});
 builder.Services.AddDistributedMemoryCache();
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {

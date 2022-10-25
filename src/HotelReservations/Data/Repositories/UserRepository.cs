@@ -26,4 +26,13 @@ public class UserRepository : IUserRepository
             return user;
         return null;
     }
+
+    public User? Register(RegisterViewModel viewModel)
+    {
+        //TODO: Save password as hash
+        User user = new User() {Username = viewModel.Username, Password = viewModel.Password, Role = "User"};
+        user = _context.Users.Add(user).Entity;
+        _context.SaveChanges();
+        return user;
+    }
 }

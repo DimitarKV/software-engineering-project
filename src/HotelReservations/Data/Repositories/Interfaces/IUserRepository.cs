@@ -7,4 +7,5 @@ public interface IUserRepository
 {
     User? GetUser(string username);
     User? ValidateAndGetUser(LoginViewModel viewModel);
+    User? Register(RegisterViewModel viewModel);
 }
