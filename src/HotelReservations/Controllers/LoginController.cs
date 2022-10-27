@@ -1,7 +1,9 @@
 ﻿using HotelReservations.Data.Repositories.Interfaces;
 using HotelReservations.Globals;
+using HotelReservations.MediatR.Commands;
 using HotelReservations.Models;
 using HotelReservations.Services.Security.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,15 +16,17 @@ namespace HotelReservations.Controllers
         private readonly ITokenService _tokenService;
         private readonly IConfiguration _config;
         private readonly IHttpContextAccessor _httpContext;
+        private readonly IMediator _mediator;
 
         public LoginController(ILogger<LoginController> logger, IUserRepository userRepository,
-            ITokenService tokenService, IConfiguration config, IHttpContextAccessor httpContext)
+            ITokenService tokenService, IConfiguration config, IHttpContextAccessor httpContext, IMediator mediator)
         {
             _logger = logger;
             _userRepository = userRepository;
             _tokenService = tokenService;
             _config = config;
             _httpContext = httpContext;
+            _mediator = mediator;
         }
 
             
@@ -33,38 +37,15 @@ namespace HotelReservations.Controllers
 
         [AllowAnonymous]    
         [HttpPost]
-        public IActionResult Login(LoginViewModel viewModel)
+        public async Task<IActionResult> Login(LoginViewModel viewModel)
         {
-            
-            if (string.IsNullOrEmpty(viewModel.Username) || string.IsNullOrEmpty(viewModel.Password))
+            var result = await _mediator.Send(new LoginUserCommand() {Username = viewModel.Username, Password = viewModel.Password});
+            if (result)
             {
-                return (RedirectToAction("Error"));
+                return Redirect("/Home");
             }
 
-            var validUser = _userRepository.ValidateAndGetUser(viewModel);
-
-            if (validUser is not null)
-            {
-                var generatedToken =
-                    _tokenService.BuildToken(validUser);
-                if (generatedToken is not null)
-                {
-                    // Response.Cookies.Append("Token", generatedToken, new CookieOptions()
-                    // {
-                    //     Expires = DateTimeOffset.Now.AddMinutes(GlobalVariables.ExpiryDurationMinutes)
-                    // });
-                    Response.HttpContext.Session.SetString("Token", generatedToken);
-                    return Redirect("/Home");
-                }
-                else
-                {
-                    return (RedirectToAction("Error"));
-                }
-            }
-            else
-            {
-                return (RedirectToAction("Error"));
-            }
+            return RedirectToAction("Error");
         }
 
         public IActionResult Error()

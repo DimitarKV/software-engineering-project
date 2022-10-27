@@ -1,7 +1,9 @@
 ﻿using HotelReservations.Data.Entities;
 using HotelReservations.Data.Persistence;
 using HotelReservations.Data.Repositories.Interfaces;
+using HotelReservations.MediatR.Commands;
 using HotelReservations.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelReservations.Data.Repositories;
 
@@ -34,5 +36,10 @@ public class UserRepository : IUserRepository
         user = _context.Users.Add(user).Entity;
         _context.SaveChanges();
         return user;
+    }
+
+    public async Task<User?> ValidateAndGetUserAsync(LoginUserCommand request)
+    {
+        return await _context.Users.Where(u => u.Username == request.Username).FirstOrDefaultAsync();
     }
 }
