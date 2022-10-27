@@ -1,12 +1,5 @@
 using HotelReservations.Data.Extensions;
-using HotelReservations.Data.Persistence;
-using HotelReservations.Data.Persistence.Interfaces;
-using HotelReservations.Data.Repositories;
-using HotelReservations.Data.Repositories.Interfaces;
 using HotelReservations.Extensions;
-using HotelReservations.Services.Security;
-using HotelReservations.Services.Security.Interfaces;
-
 
 var builder = WebApplication.CreateBuilder(args);
 

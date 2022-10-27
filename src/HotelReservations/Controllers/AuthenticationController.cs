@@ -2,23 +2,25 @@
 using HotelReservations.Services.Security.Interfaces;
 using HotelReservations.Services.UserService.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelReservations.Controllers
 {
-    public class LoginController : Controller
+    public class AuthenticationController : Controller
     {
         private readonly IUserService _userService;
         private readonly ITokenService _tokenService;
 
-        public LoginController(IUserService userService, ITokenService tokenService)
+        public AuthenticationController(IUserService userService, ITokenService tokenService)
         {
             _userService = userService;
             _tokenService = tokenService;
         }
 
-            
-        public IActionResult Index()
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult Login()
         {
             return View();
         }
@@ -29,25 +31,28 @@ namespace HotelReservations.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("Index", viewModel);
+                return View("Login", viewModel);
             }
             
             var result = _userService.ValidateUser(Response, viewModel);
             if (result is null)
             {
                 ModelState.AddModelError("Password", "Incorrect password");
-                return View("Index", viewModel);
+                return View("Login", viewModel);
             }
             
             var token = _tokenService.BuildToken(result);
             Response.HttpContext.Session.SetString("Token", token);
             
-            return Redirect("/Home");
+            return Redirect("/");
         }
 
-        public IActionResult Error()
+        [HttpPost]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public IActionResult Logout()
         {
-            return View();
+            Response.HttpContext.Session.SetString("Token", "");
+            return Redirect("/");
         }
     }
 }

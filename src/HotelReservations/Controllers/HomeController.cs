@@ -1,20 +1,15 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using HotelReservations.Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace HotelReservations.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    public IActionResult Index()
     {
-        _logger = logger;
+        return View();
     }
 
-    public IActionResult Index()
+    public IActionResult AboutUs()
     {
         return View();
     }
@@ -24,15 +19,8 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Search(ReservationQueryViewModel viewModel)
+    public IActionResult TermsOfService()
     {
-        Console.WriteLine(viewModel.Destination + " " + viewModel.DateFrom);
-        return View(nameof(Index));
-    }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
+        return View();
     }
 }
