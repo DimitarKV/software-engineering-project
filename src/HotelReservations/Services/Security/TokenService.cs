@@ -17,7 +17,7 @@ public class TokenService : ITokenService
         _configuration = configuration;
     }
 
-    public string? BuildToken(User user)
+    public string BuildToken(User user)
     {
         var claims = new[]
         {

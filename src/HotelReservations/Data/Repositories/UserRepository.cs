@@ -18,12 +18,4 @@ public class UserRepository : IUserRepository
     {
         return _context.Users.FirstOrDefault(user => user.Username == username);
     }
-
-    public User? ValidateAndGetUser(LoginViewModel viewModel)
-    {
-        var user = GetUser(viewModel.Username);
-        if (user is not null && user.Password == viewModel.Password)
-            return user;
-        return null;
-    }
 }

@@ -1,7 +1,6 @@
-﻿using HotelReservations.Data.Repositories.Interfaces;
-using HotelReservations.Globals;
-using HotelReservations.Models;
+﻿using HotelReservations.Models;
 using HotelReservations.Services.Security.Interfaces;
+using HotelReservations.Services.UserService.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,20 +8,13 @@ namespace HotelReservations.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly ILogger<LoginController> _logger;
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
         private readonly ITokenService _tokenService;
-        private readonly IConfiguration _config;
-        private readonly IHttpContextAccessor _httpContext;
 
-        public LoginController(ILogger<LoginController> logger, IUserRepository userRepository,
-            ITokenService tokenService, IConfiguration config, IHttpContextAccessor httpContext)
+        public LoginController(IUserService userService, ITokenService tokenService)
         {
-            _logger = logger;
-            _userRepository = userRepository;
+            _userService = userService;
             _tokenService = tokenService;
-            _config = config;
-            _httpContext = httpContext;
         }
 
             
@@ -35,36 +27,22 @@ namespace HotelReservations.Controllers
         [HttpPost]
         public IActionResult Login(LoginViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("Index", viewModel);
+            }
             
-            if (string.IsNullOrEmpty(viewModel.Username) || string.IsNullOrEmpty(viewModel.Password))
+            var result = _userService.ValidateUser(Response, viewModel);
+            if (result is null)
             {
-                return (RedirectToAction("Error"));
+                ModelState.AddModelError("Password", "Incorrect password");
+                return View("Index", viewModel);
             }
-
-            var validUser = _userRepository.ValidateAndGetUser(viewModel);
-
-            if (validUser is not null)
-            {
-                var generatedToken =
-                    _tokenService.BuildToken(validUser);
-                if (generatedToken is not null)
-                {
-                    // Response.Cookies.Append("Token", generatedToken, new CookieOptions()
-                    // {
-                    //     Expires = DateTimeOffset.Now.AddMinutes(GlobalVariables.ExpiryDurationMinutes)
-                    // });
-                    Response.HttpContext.Session.SetString("Token", generatedToken);
-                    return Redirect("/Home");
-                }
-                else
-                {
-                    return (RedirectToAction("Error"));
-                }
-            }
-            else
-            {
-                return (RedirectToAction("Error"));
-            }
+            
+            var token = _tokenService.BuildToken(result);
+            Response.HttpContext.Session.SetString("Token", token);
+            
+            return Redirect("/Home");
         }
 
         public IActionResult Error()

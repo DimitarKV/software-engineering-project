@@ -14,11 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.AddPersistence();
-builder.Services.AddTransient<IHotelDbContext, HotelDbContext>();
-builder.Services.AddTransient<HotelDbContext, HotelDbContext>();
-builder.Services.AddTransient<IUserRepository, UserRepository>();
-builder.Services.AddTransient<ITokenService, TokenService>();
-builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+builder.AddDependencyInjection();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {
