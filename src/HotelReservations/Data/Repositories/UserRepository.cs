@@ -18,4 +18,11 @@ public class UserRepository : IUserRepository
     {
         return _context.Users.FirstOrDefault(user => user.Username == username);
     }
+
+    public User? SaveUser(User user)
+    {
+        var entity = _context.Users.Add(user).Entity;
+        _context.SaveChanges();
+        return entity;
+    }
 }

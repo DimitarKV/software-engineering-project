@@ -96,7 +96,8 @@
 
         @if (!@Context.User.Identity!.IsAuthenticated)
         {
-            <a href="/authentication/login" class="get-started-btn scrollto">Login</a>
+            <a asp-controller="Authentication" asp-action="Login" class="get-started-btn scrollto">Login</a>
+            <a asp-controller="Authentication" asp-action="Register" class="get-started-btn scrollto">Register</a>
         }
         else
         {

@@ -17,7 +17,7 @@ public class UserService : IUserService
         _tokenService = tokenService;
     }
 
-    public User? ValidateUser(HttpResponse response, LoginViewModel viewModel)
+    public User? ValidateUser(LoginViewModel viewModel)
     {
         if (string.IsNullOrEmpty(viewModel.Username) || string.IsNullOrEmpty(viewModel.Password))
         {
@@ -35,5 +35,10 @@ public class UserService : IUserService
     public bool UserExists(string viewModelUsername)
     {
         return _userRepository.GetUser(viewModelUsername) is not null;
+    }
+
+    public User? RegisterUser(User user)
+    {
+        return _userRepository.SaveUser(user);
     }
 }

@@ -6,6 +6,7 @@ namespace HotelReservations.Services.UserService.Interfaces;
 
 public interface IUserService
 {
-    User? ValidateUser(HttpResponse response, LoginViewModel viewModel);
+    User? ValidateUser(LoginViewModel viewModel);
     bool UserExists(string viewModelUsername);
+    User? RegisterUser(User user);
 }

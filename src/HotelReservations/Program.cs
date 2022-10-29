@@ -1,3 +1,4 @@
+using HotelReservations.Controllers;
 using HotelReservations.Data.Extensions;
 using HotelReservations.Extensions;
 
@@ -9,6 +10,7 @@ builder.Services.AddControllersWithViews();
 builder.AddPersistence();
 builder.AddDependencyInjection();
 builder.Services.AddDistributedMemoryCache();
+builder.Services.AddAutoMapper(typeof(HomeController));
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {
     // This lambda determines whether user consent for non-essential cookies is needed for a given request.
