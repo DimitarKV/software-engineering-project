@@ -1,99 +1,107 @@
 ﻿using AutoMapper;
 using HotelReservations.Data.Entities;
 using HotelReservations.Models;
-using HotelReservations.Services.Security.Interfaces;
-using HotelReservations.Services.UserService.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-//TODO: Add password hashing on form submit so none of the apps classes know the original pass
 namespace HotelReservations.Controllers
 {
     public class AuthenticationController : Controller
     {
-        private readonly IUserService _userService;
-        private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly RoleManager<Role> _roleManger;
 
-        public AuthenticationController(IUserService userService, ITokenService tokenService, IMapper mapper)
+        public AuthenticationController(IMapper mapper, UserManager<User> userManager,
+            SignInManager<User> signInManager, RoleManager<Role> roleManger)
         {
-            _userService = userService;
-            _tokenService = tokenService;
             _mapper = mapper;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _roleManger = roleManger;
         }
 
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult Register()
+        public async Task<IActionResult> Register()
         {
             return View();
         }
-        
-        [AllowAnonymous]    
+
+        [AllowAnonymous]
         [HttpPost]
-        public IActionResult Register(RegisterViewModel viewModel)
+        public async Task<IActionResult> Register(RegisterViewModel viewModel)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View("Register", viewModel);
+                if (viewModel.Password != viewModel.RepeatPassword)
+                {
+                    ModelState.AddModelError("RepeatPassword", "Passwords don't match!");
+                    return View("Register", viewModel);
+                }
+
+                var user = _mapper.Map<User>(viewModel);
+                var result = await _userManager.CreateAsync(user, viewModel.Password);
+
+                if (result.Succeeded)
+                {
+                    var userRole = await _roleManger.FindByNameAsync("User");
+                    if (userRole is null)
+                    {
+                        await _roleManger.CreateAsync(new Role() {Name = "User"});
+                        userRole = await _roleManger.FindByNameAsync("User");
+                    }
+
+                    await _userManager.AddToRoleAsync(user, userRole.Name);
+
+                    await _signInManager.SignInAsync(user, true);
+
+                    return RedirectToAction("Index", "Home");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                ModelState.AddModelError(string.Empty, "Invalid Register Attempt");
             }
 
-            if (viewModel.Password != viewModel.RepeatPassword)
-            {
-                ModelState.AddModelError("RepeatPassword", "Passwords don't match!");
-                return View("Register", viewModel);
-            }
-
-            var user = _mapper.Map<User>(viewModel);
-            user.Role = "User";
-            user = _userService.RegisterUser(user);
-
-            if (user is null)
-            {
-                return View("Register", viewModel);
-            }
-
-            var token = _tokenService.BuildToken(user);
-            Response.HttpContext.Session.SetString("Token", token);
-            
-            return RedirectToAction("", "Home");
+            return View("Register", viewModel);
         }
 
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult Login()
+        public async Task<IActionResult> Login()
         {
             return View();
         }
 
-        [AllowAnonymous]    
+        [AllowAnonymous]
         [HttpPost]
-        public IActionResult Login(LoginViewModel viewModel)
+        public async Task<IActionResult> Login(LoginViewModel viewModel)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View("Login", viewModel);
+                //Add remember me button and substitute it with the hardcoded true value in the method bellow
+                var result =
+                    await _signInManager.PasswordSignInAsync(viewModel.Username, viewModel.Password, true, false);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
-            
-            var result = _userService.ValidateUser(viewModel);
-            if (result is null)
-            {
-                ModelState.AddModelError("Password", "Incorrect password");
-                return View("Login", viewModel);
-            }
-            
-            var token = _tokenService.BuildToken(result);
-            Response.HttpContext.Session.SetString("Token", token);
-            
-            return Redirect("/");
+
+            return View(viewModel);
         }
 
         [HttpPost]
-        [Authorize(AuthenticationSchemes = "Bearer")]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            Response.HttpContext.Session.SetString("Token", "");
-            return Redirect("/");
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

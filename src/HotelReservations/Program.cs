@@ -1,5 +1,4 @@
 using HotelReservations.Controllers;
-using HotelReservations.Data.Extensions;
 using HotelReservations.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
