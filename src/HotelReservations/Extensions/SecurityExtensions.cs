@@ -1,5 +1,6 @@
 ﻿using HotelReservations.Data.Entities;
 using HotelReservations.Data.Persistence;
+using Microsoft.AspNetCore.Antiforgery;
 
 namespace HotelReservations.Extensions;
 
@@ -18,6 +19,10 @@ public static class SecurityExtensions
             options.Password.RequiredUniqueChars = 0;
 
         }).AddEntityFrameworkStores<HotelDbContext>();
+        // services.AddRazorPages()
+        //     .AddRazorPagesOptions(options =>
+        //     {
+        //     });
     }
 
     public static void UseSecurity(this WebApplication app)

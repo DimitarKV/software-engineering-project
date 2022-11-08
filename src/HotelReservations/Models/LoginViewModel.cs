@@ -17,5 +17,7 @@ namespace HotelReservations.Models
 
         [DisplayName("Remember me ")]
         public bool RememberMe { get; set; } = false;
+
+        public string? Message { get; set; } = "";
     }
 }

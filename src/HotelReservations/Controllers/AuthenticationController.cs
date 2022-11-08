@@ -77,16 +77,17 @@ namespace HotelReservations.Controllers
         {
             if (ModelState.IsValid)
             {
-                //TODO: Add remember me button and substitute it with the hardcoded true value in the method bellow
                 var result =
                     await _signInManager.PasswordSignInAsync(viewModel.Username, viewModel.Password, viewModel.RememberMe, false);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "Home");
                 }
+                ModelState.AddModelError("Message", "Invalid credentials");
             }
 
-            return View(viewModel);
+            
+            return View("Login", viewModel);
         }
 
         [HttpPost]

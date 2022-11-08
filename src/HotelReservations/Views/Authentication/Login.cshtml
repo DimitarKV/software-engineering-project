@@ -10,6 +10,10 @@
             <form method="post" asp-action="Login" class="rounded bg-dark p-5">
                 <h3 class="text-light text-center mb-4">Reservations.com</h3>
                 <h6 class="text-light text-center">Sign in</h6>
+                <p class="text-light">
+                    <span asp-validation-for="Message"></span>
+                </p>
+
                 <div class="form-group mb-3">
                     <p class="text-light">
                         <span asp-validation-for="Username"></span>
@@ -24,7 +28,7 @@
                            id="email"
                            class="form-control"/>
                 </div>
-                
+
                 <div class="form-group mb-2">
                     <p class="text-light">
                         <span asp-validation-for="Password"></span>
@@ -37,7 +41,7 @@
 
                     <input id="password" type="password" asp-for="Password" class="form-control"/>
                 </div>
-                
+
                 <div class="form-group mb-2">
                     <p class="text-light">
                         <span asp-validation-for="RememberMe"></span>
@@ -50,7 +54,7 @@
 
                     <input id="rememberMe" type="checkbox" asp-for="RememberMe"/>
                 </div>
-                
+
                 <div class="mb-3">
                     <a href="#" class="hover">Forgot password?</a>
                 </div>
