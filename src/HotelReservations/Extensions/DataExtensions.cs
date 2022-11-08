@@ -1,10 +1,7 @@
 ﻿using HotelReservations.Data.Persistence;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace HotelReservations.Data.Extensions;
+namespace HotelReservations.Extensions;
 
 public static class DataExtensions
 {
