@@ -1,4 +1,5 @@
-﻿using HotelReservations.Data.Persistence;
+﻿using HotelReservations.Data.Initialization;
+using HotelReservations.Data.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace HotelReservations.Extensions;
@@ -17,5 +18,9 @@ public static class DataExtensions
         using var scope = app.Services.CreateScope();
         var db = scope.ServiceProvider.GetService<HotelDbContext>();
         db!.Database.EnsureCreated();
+
+        var dataInitializer = scope.ServiceProvider.GetService<DataInitializer>();
+        
+        dataInitializer!.Seed().Wait();
     }
 }

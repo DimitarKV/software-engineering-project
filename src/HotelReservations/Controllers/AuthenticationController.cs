@@ -48,16 +48,8 @@ namespace HotelReservations.Controllers
                 if (result.Succeeded)
                 {
                     var userRole = await _roleManger.FindByNameAsync("User");
-                    if (userRole is null)
-                    {
-                        await _roleManger.CreateAsync(new Role() {Name = "User"});
-                        userRole = await _roleManger.FindByNameAsync("User");
-                    }
-
                     await _userManager.AddToRoleAsync(user, userRole.Name);
-
                     await _signInManager.SignInAsync(user, true);
-
                     return RedirectToAction("Index", "Home");
                 }
 
