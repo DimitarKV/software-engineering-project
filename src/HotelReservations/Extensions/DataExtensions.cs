@@ -5,9 +5,9 @@ namespace HotelReservations.Extensions;
 
 public static class DataExtensions
 {
-    public static void AddPersistence(this WebApplicationBuilder builder, string name = "Database") // TODO: place config in app.json
+    public static void AddPersistence(this WebApplicationBuilder builder) 
     {
-        var connectionString = builder.Configuration.GetConnectionString(name);
+        var connectionString = builder.Configuration.GetConnectionString("Database");
         builder.Services.AddDbContext<HotelDbContext>(opt =>
             opt.UseSqlServer(connectionString));
     }

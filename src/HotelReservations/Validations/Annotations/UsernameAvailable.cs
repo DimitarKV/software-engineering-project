@@ -8,14 +8,12 @@ public class UsernameAvailable : ValidationAttribute
 {
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
-        //TODO: Deal with the un-async nature of validation pipeline
-        // if(value is null) return ValidationResult.Success;
-        // var username = value.ToString();
-        // if (username is null) return ValidationResult.Success;
-        //
-        // var userService = (UserManager<User>) validationContext.GetService(typeof(UserManager<User>))!;
-        //
-        // return (await userService.FindB(username)) != null ? new ValidationResult("Username already exists!") : ValidationResult.Success;
-        return ValidationResult.Success;
+         if(value is null) return ValidationResult.Success;
+         var username = value.ToString();
+         if (username is null) return ValidationResult.Success;
+        
+         var userService = (UserManager<User>) validationContext.GetService(typeof(UserManager<User>))!;
+        
+         return userService.FindByNameAsync(username).Result != null ? new ValidationResult("Username already exists!") : ValidationResult.Success;
     }
 }

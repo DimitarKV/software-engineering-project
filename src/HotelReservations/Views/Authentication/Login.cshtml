@@ -14,26 +14,43 @@
                     <p class="text-light">
                         <span asp-validation-for="Username"></span>
                     </p>
-                    
-                    <label asp-for="Username" 
-                           class="text-light"></label>
-                    
-                    <input type="text" 
-                           asp-for="Username" 
-                           id="email" 
+
+                    <label asp-for="Username"
+                           class="text-light">
+                    </label>
+
+                    <input type="text"
+                           asp-for="Username"
+                           id="email"
                            class="form-control"/>
                 </div>
+                
                 <div class="form-group mb-2">
                     <p class="text-light">
                         <span asp-validation-for="Password"></span>
                     </p>
-                    
-                    <label 
-                        asp-for="Password" 
-                        class="text-light"></label>
-                    
+
+                    <label
+                        asp-for="Password"
+                        class="text-light">
+                    </label>
+
                     <input id="password" type="password" asp-for="Password" class="form-control"/>
                 </div>
+                
+                <div class="form-group mb-2">
+                    <p class="text-light">
+                        <span asp-validation-for="RememberMe"></span>
+                    </p>
+
+                    <label
+                        asp-for="RememberMe"
+                        class="text-light">
+                    </label>
+
+                    <input id="rememberMe" type="checkbox" asp-for="RememberMe"/>
+                </div>
+                
                 <div class="mb-3">
                     <a href="#" class="hover">Forgot password?</a>
                 </div>

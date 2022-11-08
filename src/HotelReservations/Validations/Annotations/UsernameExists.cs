@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using HotelReservations.Data.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace HotelReservations.Validations.Annotations;
 
@@ -6,16 +8,12 @@ public class UsernameExists : ValidationAttribute
 {
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
-        //TODO: Deal with the un-async nature of validation pipeline
-
-        // if(value is null) return ValidationResult.Success;
-        // var username = value.ToString();
-        // if (username is null) return ValidationResult.Success;
-        //
-        // var userService = (IUserService) validationContext.GetService(typeof(IUserService))!;
-        //
-        // return userService.UserExists(username) ? ValidationResult.Success : new ValidationResult("No such user with the given username exists!");
+        if(value is null) return ValidationResult.Success;
+        var username = value.ToString();
+        if (username is null) return ValidationResult.Success;
         
-        return ValidationResult.Success;
+        var userService = (UserManager<User>) validationContext.GetService(typeof(UserManager<User>))!;
+        
+        return userService.FindByNameAsync(username).Result != null ? ValidationResult.Success : new ValidationResult("No such user with the given username exists!");
     }
 }
