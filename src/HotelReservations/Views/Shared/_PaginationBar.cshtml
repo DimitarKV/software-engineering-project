@@ -1,8 +1,14 @@
 ﻿@model HotelReservations.Helpers.PaginationProperties
 
+@{
+    var queryParameters = (Dictionary<string, string>) ViewData["QueryParameters"]!;
+}
+
 @if (Model.PreviousPage != 0)
 {
-    <a asp-route-id="@Model.PreviousPage">Prev</a>
+    var parameters = queryParameters;
+    parameters["Page"] = Model.PreviousPage.ToString();
+    <a asp-all-route-data="parameters">Prev</a>
 }
 @for (int i = Model.PageSpanStart; i <= Model.PageSpanEnd; i++)
 {
@@ -12,10 +18,15 @@
     }
     else
     {
-        <a asp-route-id="@i">@i</a>
+        var parameters = queryParameters;
+        parameters["Page"] = i.ToString();
+        <a asp-all-route-data="parameters">@i</a>
     }
 }
 @if (Model.NextPage != 0)
 {
-    <a asp-route-id="@Model.NextPage">Next</a>
+    var parameters = queryParameters;
+    parameters["Page"] = Model.NextPage.ToString();
+
+    <a asp-all-route-data="parameters">Next</a>
 }

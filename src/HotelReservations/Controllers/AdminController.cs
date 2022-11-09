@@ -19,19 +19,24 @@ public class AdminController : Controller
         _mapper = mapper;
     }
 
-    public async Task<IActionResult> Panel(int id = 1, int perPage = 5)
+    public async Task<IActionResult> Panel(int page = 1, int perPage = 5)
     {
         var users = await _userManager.Users
-            .Skip((id - 1) * perPage)
+            .Skip((page - 1) * perPage)
             .Take(perPage)
             .Select(user => _mapper.Map<UserViewModel>(user))
             .ToListAsync();
 
+        ViewData["QueryParameters"] = new Dictionary<string, string>
+        {
+            {"Page", page.ToString()},
+            {"PerPage", perPage.ToString()}
+        };
 
         return View(new AdminPanelViewModel()
         {
             Users = users,
-            PaginationProperties = Pagination.CalculateProperties(id,
+            PaginationProperties = Pagination.CalculateProperties(page,
                 await _userManager.Users.CountAsync(),
                 perPage)
         });
