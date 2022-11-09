@@ -7,8 +7,36 @@
     <div class="row">
         <div class="col-sm-1"></div>
         <div class="col-sm-4">
-            @* <partial name="_HotelsSearchForm"/> *@
-            
+            @* TODO Build design *@
+            <table>
+                <thead>
+                <tr>
+                    <td>Username</td>
+                    <td>First name</td>
+                    <td>Last name</td>
+                    <td>Phone number</td>
+                    <td>Email</td>
+                    <td>Adult</td>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var user in Model.Users)
+                {
+                    <tr>
+                        <td>@user.UserName</td>
+                        <td>@user.FirstName</td>
+                        <td>@user.LastName</td>
+                        <td>@user.PhoneNumber</td>
+                        <td>@user.Email</td>
+                        <td>@user.IsAdult</td>
+                    </tr>
+                }
+                </tbody>
+
+            </table>
+
+
+            <partial name="_PaginationBar" model="Model.PaginationProperties"/>
         </div>
         <div class="col-sm-7"></div>
     </div>

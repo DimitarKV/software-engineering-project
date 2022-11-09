@@ -54,5 +54,27 @@ public class DataInitializer
             user = await _userManager.FindByNameAsync("user");
             await _userManager.AddToRoleAsync(user, "User");
         }
+
+        for (int i = 1; i <= 100; i++)
+        {
+            var name = "test" + i;
+            var nameArray = name.ToCharArray();
+            Array.Reverse(nameArray);
+            var nameReversed = new string(nameArray);
+            var password = "test" + i;
+            var testUser = await _userManager.FindByNameAsync(name);
+            if (testUser is null)
+            {
+                await _userManager.CreateAsync(new User()
+                {
+                    Email = name + "@" + name + "." + name, 
+                    FirstName = name,
+                    LastName = nameReversed,
+                    IsAdult = i % 2 == 0,
+                    PhoneNumber = (i * 10230102).ToString(),
+                    UserName = name
+                }, password);
+            }
+        }
     }
 }

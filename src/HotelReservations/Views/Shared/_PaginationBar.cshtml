@@ -1,0 +1,21 @@
+﻿@model HotelReservations.Helpers.PaginationProperties
+
+@if (Model.PreviousPage != 0)
+{
+    <a asp-route-id="@Model.PreviousPage">Prev</a>
+}
+@for (int i = Model.PageSpanStart; i <= Model.PageSpanEnd; i++)
+{
+    if (Model.CurrentPage == i)
+    {
+        <a>@Model.CurrentPage</a>
+    }
+    else
+    {
+        <a asp-route-id="@i">@i</a>
+    }
+}
+@if (Model.NextPage != 0)
+{
+    <a asp-route-id="@Model.NextPage">Next</a>
+}

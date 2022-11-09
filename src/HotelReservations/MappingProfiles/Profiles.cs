@@ -12,5 +12,7 @@ public class Profiles : Profile
             .ForMember(dest => dest.IsAdult,
                 conf => conf.MapFrom(src =>
                     DateTime.Now.AddYears(-18).CompareTo(src.DateOfBirth) >= 0));
+        CreateMap<User, UserViewModel>();
+        CreateMap<Employee, EmployeeViewModel>();
     }
 }
