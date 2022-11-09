@@ -28,6 +28,7 @@ public static class SecurityExtensions
     public static void UseSecurity(this WebApplication app)
     {
         app.UseAuthentication();
+        app.UseAuthorization();
         app.UseHttpsRedirection();
     }
 }

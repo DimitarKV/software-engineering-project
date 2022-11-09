@@ -2,12 +2,14 @@
 using HotelReservations.Data.Entities;
 using HotelReservations.Helpers;
 using HotelReservations.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace HotelReservations.Controllers;
 
+[Authorize(Roles = "Admin")]
 public class AdminController : Controller
 {
     private readonly UserManager<User> _userManager;
