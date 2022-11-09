@@ -52,13 +52,17 @@
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->
 
-        @if (!@Context.User.Identity!.IsAuthenticated)
+        @if (!Context.User.Identity!.IsAuthenticated)
         {
             <a asp-controller="Authentication" asp-action="Login" class="get-started-btn scrollto">Login</a>
             <a asp-controller="Authentication" asp-action="Register" class="get-started-btn scrollto">Register</a>
         }
         else
         {
+            if (Context.User.IsInRole("Admin"))
+            {
+                <a asp-controller="Admin" asp-action="Panel" class="get-started-btn scrollto">Admin</a>
+            }
             <form method="post" asp-controller="Authentication" asp-action="Logout">
                 <button type="submit" class="get-started-btn scrollto">Logout</button>
             </form>
