@@ -4,23 +4,26 @@
     var queryParameters = (Dictionary<string, string>) ViewData["QueryParameters"]!;
 }
 
+<nav>
+<ul class="pagination">
 @if (Model.PreviousPage != 0)
 {
     var parameters = queryParameters;
     parameters["Page"] = Model.PreviousPage.ToString();
-    <a asp-all-route-data="parameters">Prev</a>
+    <li class="page-item"><a asp-all-route-data="parameters" class="page-link">Prev</a></li>
+    
 }
 @for (int i = Model.PageSpanStart; i <= Model.PageSpanEnd; i++)
 {
     if (Model.CurrentPage == i)
     {
-        <a>@Model.CurrentPage</a>
+        <a class="page-link active">@Model.CurrentPage</a>
     }
     else
     {
         var parameters = queryParameters;
         parameters["Page"] = i.ToString();
-        <a asp-all-route-data="parameters">@i</a>
+        <li class="page-item"><a asp-all-route-data="parameters" class="page-link">@i</a></li>
     }
 }
 @if (Model.NextPage != 0)
@@ -28,5 +31,7 @@
     var parameters = queryParameters;
     parameters["Page"] = Model.NextPage.ToString();
 
-    <a asp-all-route-data="parameters">Next</a>
+    <li class="page-item"><a asp-all-route-data="parameters" class="page-link">Next</a></li>
 }
+</ul>
+</nav>
