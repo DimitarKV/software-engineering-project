@@ -1,0 +1,9 @@
+﻿@media only screen and (max-width: 1500px) {
+    #team{
+        flex-wrap:wrap;
+        align-items: center;
+    }
+    .c{
+        margin-bottom: 1rem;
+    }
+}
