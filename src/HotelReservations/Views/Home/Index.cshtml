@@ -2,12 +2,22 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-1"></div>
-        <div class="col-sm-4">
-            <partial name="_HotelsSearchForm"/>
+<div class="container-fluid">
+    <div class="row mx-3 my-4">
+        <div class="col-xl-3">  
         </div>
-        <div class="col-sm-7"></div>
+        <div class="col-xl-4">
+            <partial name="_HotelsSearchForm" />
+        </div>
+        <div class="col-xl-5"></div>
+    </div>
+    <div class="row mx-3 my-4">
+        <div class="d-flex justify-content-around flex-wrap">
+            <partial name="_HotelInfoTemplate" />
+            <partial name="_HotelInfoTemplate" />
+            <partial name="_HotelInfoTemplate" />
+            <partial name="_HotelInfoTemplate" />
+            <partial name="_HotelInfoTemplate" />
+        </div>
     </div>
 </div>
