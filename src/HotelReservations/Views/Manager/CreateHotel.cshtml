@@ -1,1 +1,22 @@
-﻿
+﻿@model HotelReservations.Models.CreateHotelModel
+
+<form method="post">
+    <input type="text" asp-for="Name"/>
+    <input type="text" asp-for="Description"/>
+    <input type="file" asp-for="Image"/>
+    <input type="text" asp-for="Location"/>
+    <div id="roomsContainer">
+        
+    </div>
+</form>
+<button id="addRoomButton">Add room</button>
+
+<script>
+$(document).ready(function() {
+  $("#addRoomButton").click(function (e) {
+      $.get("/Manager/CreateRoomPartial", (data) => {
+          $("#roomsContainer").append(data);
+      });
+    })
+});
+</script>

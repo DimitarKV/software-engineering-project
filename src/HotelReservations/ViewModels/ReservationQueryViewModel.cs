@@ -1,4 +1,4 @@
-﻿namespace HotelReservations.Models;
+﻿namespace HotelReservations.ViewModels;
 
 public class ReservationQueryViewModel
 {

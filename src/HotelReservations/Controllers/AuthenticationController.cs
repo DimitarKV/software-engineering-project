@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HotelReservations.Data.Entities;
 using HotelReservations.Models;
+using HotelReservations.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +33,7 @@ namespace HotelReservations.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel viewModel)
+        public async Task<IActionResult> Register(RegisterModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +74,7 @@ namespace HotelReservations.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel viewModel)
+        public async Task<IActionResult> Login(LoginModel viewModel)
         {
             if (ModelState.IsValid)
             {

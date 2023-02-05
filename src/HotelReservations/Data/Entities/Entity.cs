@@ -1,6 +1,4 @@
-﻿using HotelReservations.Models;
-
-namespace HotelReservations.Data.Entities
+﻿namespace HotelReservations.Data.Entities
 {
     public class Entity<T> : IEntity<T>
     {

@@ -4,7 +4,7 @@ using HotelReservations.Validations.Annotations;
 
 namespace HotelReservations.Models
 {
-    public class LoginViewModel
+    public class LoginModel
     {
         [Required(ErrorMessage = "Username is required")]
         [UsernameExists]

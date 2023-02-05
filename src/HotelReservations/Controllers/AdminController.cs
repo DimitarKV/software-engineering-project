@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using HotelReservations.Data.Entities;
 using HotelReservations.Helpers;
-using HotelReservations.Models;
+using HotelReservations.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

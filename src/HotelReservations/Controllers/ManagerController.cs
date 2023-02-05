@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HotelReservations.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace HotelReservations.Controllers
 {
@@ -7,6 +9,17 @@ namespace HotelReservations.Controllers
         public IActionResult Index()
         {
             return View("CreateHotel");
+        }
+
+        
+        public IActionResult CreateHotel([FromForm] CreateHotelModel model)
+        {
+            return View("CreateHotel");
+        }
+        
+        public IActionResult CreateRoomPartial()
+        {
+            return PartialView("CreateRoomPartial");
         }
     }
 }

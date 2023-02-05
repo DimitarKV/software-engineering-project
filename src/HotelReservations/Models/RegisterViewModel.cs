@@ -4,7 +4,7 @@ using HotelReservations.Validations.Annotations;
 
 namespace HotelReservations.Models;
 
-public class RegisterViewModel
+public class RegisterModel
 {
     [Required(ErrorMessage = "Username is required")]
     [UsernameAvailable]

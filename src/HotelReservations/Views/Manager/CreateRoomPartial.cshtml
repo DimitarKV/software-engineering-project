@@ -1,0 +1,15 @@
+﻿@using HotelReservations.Data.Entities.Enums
+@model HotelReservations.Models.CreateRoomModel
+
+<div>
+    <input type="number" asp-for="Capacity"/>
+    <select asp-for="Type">
+        @foreach (var val in Enum.GetValues(typeof(RoomTypeEnum)))
+        {
+            <option value="@val.ToString()">@val.ToString()</option>
+        }
+    </select>
+    <input type="number" asp-for="AdultBedPrice"/>
+    <input type="number" asp-for="KidBedPrice"/>
+    <input type="number" asp-for="Number"/>
+</div>
