@@ -1,1 +1,37 @@
-﻿
+﻿<div class="row overflow-x-hidden">
+    <div class="col-lg-4 p-0"></div>
+    <div class="col-lg-4 p-0">
+        <div class="container">
+            <h2 class="text-center my-4">Create hotel</h2>
+            <form>
+                <div class="form-group my-3">
+                    <label for="hotelName">Hotel Name:</label>
+                    <input type="text" id="hotelName" class="form-control" placeholder="Enter hotel name" />
+                </div>
+                <div class="form-group my-3">
+                    <label for="hotelDescription">Hotel Description:</label>
+                    <input type="text" id="hotelDescription" class="form-control" placeholder="Enter hotel description" />
+                </div>
+                <div class="form-group my-3">
+                    <label for="hotelLocation">Hotel Location:</label>
+                    <input type="text" id="hotelLocation" class="form-control" placeholder="Enter hotel location" />
+                </div>
+                <div class="form-group my-3">
+                    <label for="hotelImage">Hotel Image:</label>
+                    <input type="file" id="hotelImage" class="form-control" />
+                </div>
+                <div class="form-group my-3">
+                    <label for="hotelRooms">Add Hotel Rooms:</label>
+                    <button class="btn btn-secondary px-2 py-1">+</button>
+                </div>
+                <div class="my-5" style="overflow-x:hidden;">
+                    <partial name="_CreateRoom" />
+                </div>
+                <div class="my-5">
+                    <partial name="_RoomInfo" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-4 p-0"></div>
+</div>

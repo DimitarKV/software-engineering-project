@@ -16,6 +16,8 @@
                     <th scope="col">Phone number</th>
                     <th scope="col">Email</th>
                     <th scope="col">Adult</th>
+                    <th scope="col">Roles</th>
+                    <th scope="col">Assign role</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -28,6 +30,17 @@
                         <td>@user.PhoneNumber</td>
                         <td>@user.Email</td>
                         <td>@user.IsAdult</td>
+                        <td>
+                            @*change values from existing roles*@
+                            <select>
+                                <option value="admin">Admin</option>
+                                <option value="user">User</option>
+                                <option value="manager">Manager</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary">Select</button>
+                        </td>
                     </tr>
                 }
                 </tbody>
