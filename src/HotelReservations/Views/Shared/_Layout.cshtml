@@ -64,6 +64,13 @@
             {
                 <a asp-controller="Admin" asp-action="Panel" class="get-started-btn scrollto">Admin</a>
             }
+
+            if (Context.User.IsInRole("Manager") || Context.User.IsInRole("Admin"))
+            {
+                <a asp-controller="Manager" asp-action="CreateHotel" class="get-started-btn scrollto">Create Hotel</a>
+                <a asp-controller="Manager" asp-action="CreateRoom" class="get-started-btn scrollto">Create Room</a>
+            }
+            
             <form method="post" asp-controller="Authentication" asp-action="Logout">
                 <button type="submit" class="get-started-btn scrollto">Logout</button>
             </form>

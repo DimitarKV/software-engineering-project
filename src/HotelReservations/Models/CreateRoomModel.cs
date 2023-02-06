@@ -10,5 +10,7 @@ public class CreateRoomModel
     public double AdultBedPrice { get; set; }
     public double KidBedPrice { get; set; }
     public int Number { get; set; }
+
+    public int HotelId { get; set; }
     public List<BasicHotelViewModel> CurrentUserHotels { get; set; }
 }

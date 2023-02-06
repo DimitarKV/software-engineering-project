@@ -16,5 +16,6 @@ public class Profiles : Profile
         CreateMap<User, UserViewModel>();
         CreateMap<Employee, EmployeeViewModel>();
         CreateMap<Hotel, BasicHotelViewModel>();
+        CreateMap<CreateRoomModel, Room>();
     }
 }

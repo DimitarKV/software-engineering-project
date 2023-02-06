@@ -47,4 +47,13 @@ public class ManagerService : IManagerService
 
         return new CreateRoomModel() {CurrentUserHotels = hotelsMapped};
     }
+
+    public async Task CreateRoomAsync(CreateRoomModel model)
+    {
+        var hotel = _context.Hotels.Include(h => h.Rooms).FirstOrDefault(h => h.Id == model.HotelId);
+        var room = _mapper.Map<Room>(model);
+        room.Hotel = hotel!;
+        _context.Rooms.Add(room);
+        await _context.SaveChangesAsync();
+    }
 }

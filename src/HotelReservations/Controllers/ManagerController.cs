@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HotelReservations.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Manager,Admin")]
     public class ManagerController : Controller
     {
         private readonly IImageUploader _uploader;
@@ -46,16 +46,14 @@ namespace HotelReservations.Controllers
             await _managerService.CreateHotelAsync(model, username!);
             return RedirectToAction("Index", "Home");
         }
-
-
-        public IActionResult CreateRoomPartial()
+        
+        [HttpPost]
+        public async Task<IActionResult> CreateRoom([FromForm] CreateRoomModel model)
         {
-            return PartialView("_CreateRoom");
-        }
-
-        public IActionResult CreateRoomInfoPartial()
-        {
-            return PartialView("_RoomInfo");
+            var username = User.Identity!.Name;
+            await _managerService.CreateRoomAsync(model);
+            
+            return RedirectToAction("Index", "Home");
         }
     }
 }
