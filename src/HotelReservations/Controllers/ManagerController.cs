@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
-using HotelReservations.Data.Entities;
 using HotelReservations.Data.Persistence;
 using HotelReservations.Helpers.Cloudinary;
 using HotelReservations.Models;
-using HotelReservations.ViewModels;
+using HotelReservations.Services.ManagerService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.EntityFrameworkCore;
 
 namespace HotelReservations.Controllers
 {
@@ -17,52 +14,45 @@ namespace HotelReservations.Controllers
         private readonly IImageUploader _uploader;
         private readonly HotelDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IManagerService _managerService;
 
-        public ManagerController(IImageUploader uploader, HotelDbContext context, IMapper mapper)
+        public ManagerController(IImageUploader uploader, HotelDbContext context, IMapper mapper,
+            IManagerService managerService)
         {
             _uploader = uploader;
             _context = context;
             _mapper = mapper;
+            _managerService = managerService;
         }
-
+        
+        [HttpGet]
         public IActionResult CreateHotel()
         {
             return View("CreateHotel");
         }
 
-        public IActionResult CreateRoom()
+        [HttpGet]
+        public async Task<IActionResult> CreateRoom()
         {
-            var roomModel = new CreateRoomModel();
-            var username = User.Identity.Name;
-            var user = _context.Users.Include(u => u.Hotels).Where(x => x.UserName == username).First();
-            var hotels = user.Hotels.ToList();
-            var hotelsMapped = new List<BasicHotelViewModel>();
-
-            foreach (var kirech in hotels)
-            {
-                hotelsMapped.Add(_mapper.Map<BasicHotelViewModel>(hotels));    
-            }
-            return View("CreateRoom", new CreateRoomModel { CurrentUserHotels = hotelsMapped });
+            var username = User.Identity!.Name;
+            var model = await _managerService.GenerateRoomTemplateAsync(username!);
+            return View("CreateRoom", model);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateHotel([FromForm] CreateHotelModel model)
         {
-            var username = User.Identity.Name;
-            var user = _context.Users.Where(x => x.UserName == username).First();
-
-            var result = await _uploader.UploadImageAsync(model.Image.Name, model.Image);
-            var hotel = new Hotel{ Name = model.Name, Description = model.Description, Location = model.Location, Image = result.Uri.ToString(), User = user };
-            _context.Hotels.Add(hotel);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+            var username = User.Identity!.Name;
+            await _managerService.CreateHotelAsync(model, username!);
+            return RedirectToAction("Index", "Home");
         }
-        
+
+
         public IActionResult CreateRoomPartial()
         {
             return PartialView("_CreateRoom");
         }
-        
+
         public IActionResult CreateRoomInfoPartial()
         {
             return PartialView("_RoomInfo");
