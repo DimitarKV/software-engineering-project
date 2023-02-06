@@ -1,0 +1,35 @@
+﻿@model HotelReservations.Models.CreateRoomModel
+
+@using HotelReservations.Data.Entities.Enums
+
+
+<div class="form-group my-3">
+    <label for="roomCapacity">Room Capacity:</label>
+    <input type="number" id="roomCapacity" class="form-control" min="0" max="10" placeholder="Enter room capacity" />
+</div>
+<div class="form-group my-3">
+    <label for="adultBedPrice">Adult Bed Price:</label>
+    <input type="number" id="adultBedPrice" class="form-control" min="0" placeholder="Enter price for an adult" />
+</div>
+<div class="form-group my-3">
+    <label for="kidBedPrice">Kid Bed Price:</label>
+    <input type="number" id="kidBedPrice" class="form-control" min="0" placeholder="Enter price for a kid" />
+</div>
+
+<div class="form-group my-3">
+    <label for="roomType">Room type:</label>
+    <select asp-for="Type" class="form-control">
+        @foreach (var val in Enum.GetValues(typeof(RoomTypeEnum)))
+        {
+            <option value="@val.ToString()">@val.ToString()</option>
+        }
+    </select>
+</div>
+<div class="form-group my-3">
+    <label for="roomAvailability">Is room free:</label>
+    <input type="checkbox" id="roomAvailability" class="from-control"/>
+</div>
+<div class="form-group my-3">
+    <label for="roomNumber">Room number:</label>
+    <input type="number" id="roomNumber" min="100" class="form-control"/>
+</div>

@@ -8,6 +8,7 @@ builder.Services.AddControllersWithViews();
 
 builder.AddPersistence();
 builder.AddDependencyInjection();
+builder.AddCloudinary();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddAutoMapper(typeof(HomeController));
 builder.Services.Configure<CookiePolicyOptions>(options =>
