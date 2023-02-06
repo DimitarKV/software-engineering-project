@@ -15,7 +15,7 @@ public class ImageUploader : IImageUploader
     {
         var uploadParams = new ImageUploadParams()
         {
-            File = new FileDescription(file.FileName, file.OpenReadStream()),
+            File = new FileDescription(file.Name + Guid.NewGuid(), file.OpenReadStream()),
             PublicId = name.Replace(" ", "")
         };
         return await _cloudinary.UploadAsync(uploadParams);

@@ -1,23 +1,21 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@using HotelReservations.ViewModels
+@model List<HotelReservations.ViewModels.HotelViewModel>
 
 <div class="container-fluid">
     <div class="row mx-3 my-4">
         <div class="col-xl-3">  
         </div>
         <div class="col-xl-4">
-            <partial name="_HotelsSearchForm" />
+            <partial name="_HotelsSearchForm" model="new ReservationQueryViewModel()"/>
         </div>
         <div class="col-xl-5"></div>
     </div>
     <div class="row mx-3 my-4">
         <div class="d-flex justify-content-around flex-wrap">
-            <partial name="_HotelInfoTemplate" />
-            <partial name="_HotelInfoTemplate" />
-            <partial name="_HotelInfoTemplate" />
-            <partial name="_HotelInfoTemplate" />
-            <partial name="_HotelInfoTemplate" />
+            @foreach (var kirech in @Model)
+            {
+                    <partial name="_HotelInfoTemplate" model="kirech"/>
+            }
         </div>
     </div>
 </div>
