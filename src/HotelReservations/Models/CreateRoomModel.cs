@@ -1,4 +1,5 @@
 ﻿using HotelReservations.Data.Entities.Enums;
+using HotelReservations.ViewModels;
 
 namespace HotelReservations.Models;
 
@@ -9,4 +10,5 @@ public class CreateRoomModel
     public double AdultBedPrice { get; set; }
     public double KidBedPrice { get; set; }
     public int Number { get; set; }
+    public List<BasicHotelViewModel> CurrentUserHotels { get; set; }
 }

@@ -13,5 +13,7 @@ namespace HotelReservations.Data.Entities
         
         //Mandatory for Hotel employees
         public Employee? EmployeeProperties { get; set; }
+
+        public IEnumerable<Hotel> Hotels { get; set; }
     }
 }
