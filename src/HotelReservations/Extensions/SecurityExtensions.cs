@@ -1,6 +1,7 @@
 ﻿using HotelReservations.Data.Entities;
 using HotelReservations.Data.Persistence;
 using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace HotelReservations.Extensions;
 
@@ -19,10 +20,13 @@ public static class SecurityExtensions
             options.Password.RequiredUniqueChars = 0;
 
         }).AddEntityFrameworkStores<HotelDbContext>();
-        // services.AddRazorPages()
-        //     .AddRazorPagesOptions(options =>
-        //     {
-        //     });
+
+        services.ConfigureApplicationCookie(options =>
+        {
+            options.Cookie.Name = ".AspNetCore.Identity.Application";
+            options.ExpireTimeSpan = TimeSpan.FromDays(30);
+            options.SlidingExpiration = true;
+        });
     }
 
     public static void UseSecurity(this WebApplication app)

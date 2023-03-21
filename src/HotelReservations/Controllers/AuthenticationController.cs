@@ -2,6 +2,7 @@
 using HotelReservations.Data.Entities;
 using HotelReservations.Models;
 using HotelReservations.ViewModels;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
