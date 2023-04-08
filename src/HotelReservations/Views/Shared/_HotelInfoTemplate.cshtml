@@ -1,14 +1,15 @@
 ﻿@model HotelReservations.ViewModels.HotelViewModel
 
 <div class="card m-3" style="width: 30rem;">
-  <img src="@Model.Image" class="card-img-top" alt="Hotel Image">
-  <div class="card-body">
-    <h3 class="card-title">@Model.Name</h3>
-    <p class="card-text">@Model.Description</p>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">Location: @Model.Location</li>
-      <li class="list-group-item">Rooms: @Model.RoomCount</li>
-    </ul>
-    <a href="#" class="btn btn-primary">Reserve</a>
-  </div>
+    <img src="@Model.Image" class="card-img-top" alt="Hotel Image">
+    <div class="card-body">
+        <h3 class="card-title">@Model.Name</h3>
+        <p class="card-text">@Model.Description</p>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Location: @Model.Location</li>
+            <li class="list-group-item">Rooms: @Model.RoomCount</li>
+        </ul>
+        @Html.ActionLink("Reserve", "Reserve", "Hotel", @Model, new { @class = "btn btn-primary" })
+        @* <a href="/Hotel/Reserve" class="btn btn-primary" asp-all-route-data="">Reserve</a> *@
+    </div>
 </div>
