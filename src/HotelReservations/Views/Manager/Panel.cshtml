@@ -1,0 +1,15 @@
+﻿@model List<HotelReservations.ViewModels.HotelViewModelManager>
+
+@{
+    ViewData["Title"] = "Manager panel";
+}
+<div class="container-fluid">
+    <div class="row mx-3 my-4">
+        <div class="d-flex justify-content-around flex-wrap">
+            @foreach (var kirech in Model)
+            {
+                <partial name="_HotelInfoManager" model="@kirech"/>
+            }
+        </div>
+    </div>
+</div>

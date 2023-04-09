@@ -20,5 +20,7 @@ public class Profiles : Profile
         CreateMap<Hotel, HotelViewModel>()
             .ForMember(dest => dest.RoomCount,
                 conf => conf.MapFrom(src => src.Rooms.Count()));
+        CreateMap<Hotel, HotelViewModelManager>();
+        CreateMap<Room, RoomModel>();
     }
 }
