@@ -16,8 +16,7 @@ public class HotelController : Controller
         _userManager = userManager;
         _mapper = mapper;
     }
-
-    // GET
+    
     public async Task<IActionResult> Reserve(HotelViewModel model)
     {
         bool loggedIn = HttpContext.User.Identity!.IsAuthenticated;

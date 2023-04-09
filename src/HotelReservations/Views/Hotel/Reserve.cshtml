@@ -5,9 +5,9 @@
 }
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-1"></div>
-        <div class="col-4 my-3">
+    <div class="d-lg-flex break-flex">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-4 my-3">
             <h2 class="text-center">Reserve page</h2>
             <div class="form-group my-3">
                 <label for="name" asp-for="@Model.Hotel.Name">Hotel name: </label>
@@ -27,11 +27,11 @@
             </div>
             <div class="form-group my-3">
                 <label for="image" asp-for="@Model.Hotel.Image">Hotel image: </label>
-                <img id="image" src="@Model.Hotel.Image" alt="Hotel image" class="card-img-top">
+                <img id="image" src="@Model.Hotel.Image" alt="Hotel image" class="card-img-top" width="200" height="200">
             </div>
         </div>
-        <div class="col-2"></div>
-        <div class="col-4 my-3">
+        <div class="col-lg-2 my-lg-5"></div>
+        <div class="col-lg-4 my-3">
             <h2 class="text-center">Personal info</h2>
             @if (!Context.User.Identity!.IsAuthenticated)
             {
@@ -57,9 +57,31 @@
                     <label for="email" asp-for="@Model.User.Email">Email: </label>
                     <input type="text" asp-for="@Model.User.Email" id="email" class="form-control" value="@Model.User.Email" readonly="readonly">
                 </div>
+                <br>
+                <br>
+                <br>
+                <form>
+                    <h4 class="text-center">Reservation form</h4>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Arrival date</span>
+                        <input type="date" class="form-control"
+                               min="@DateTime.Now.ToString("yyyy-MM-dd")" id="dateFrom">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Departure date</span>
+                        <input type="date"
+                               min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")"
+                               class="form-control" id="dateTo">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Number of people</span>
+                        <input type="number" min="1" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Reserve</button>
+                </form>
             }
-            @* TODO: Add button for the actual reservation *@
         </div>
-        <div class="col-1"></div>
+        <div class="col-lg-1"></div>
     </div>
 </div>

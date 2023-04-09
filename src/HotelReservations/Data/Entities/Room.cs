@@ -11,5 +11,7 @@ namespace HotelReservations.Data.Entities
         public double KidBedPrice { get; set; }
         public int Number { get; set; }
         public Hotel Hotel { get; set; }
+
+        // public List<Reservation> Reservations { get; set; }
     }
 }
