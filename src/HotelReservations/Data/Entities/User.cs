@@ -10,10 +10,6 @@ namespace HotelReservations.Data.Entities
         public string? PhoneNumber { get; set; }
         public string? Email { get; set; }
         public bool? IsAdult { get; set; }
-        
-        //Mandatory for Hotel employees
-        public Employee? EmployeeProperties { get; set; }
-
-        public IEnumerable<Hotel> Hotels { get; set; }
+        public IEnumerable<Hotel>? Hotels { get; set; }
     }
 }

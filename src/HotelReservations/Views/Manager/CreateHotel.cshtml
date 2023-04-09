@@ -22,12 +22,6 @@
                     <label for="hotelImage">Hotel Image:</label>
                     <input asp-for="Image" accept="image/*" type="file" id="hotelImage" class="form-control"/>
                 </div>
-                @* <div id="createRoomContainer" class="my-5" style="overflow-x:hidden;"> *@
-                @* </div> *@
-                @* <div class="form-group my-3"> *@
-                @*     <label for="addRoomButton">Add Hotel Rooms:</label> *@
-                @*     <button class="btn btn-secondary px-2 py-1" id="addRoomButton">+</button> *@
-                @* </div> *@
                 <div class="form-group my-3">
                     <button class="form-control btn btn-primary px-2 py-1" type="submit">Create</button>
                 </div>
@@ -36,28 +30,3 @@
     </div>
     <div class="col-lg-4 p-0"></div>
 </div>
-
-@* <script> *@
-@* let roomI = 0; *@
-@* *@
-@* $(document).ready(function() { *@
-@*   $("#addRoomButton").click(function (e) { *@
-@*       e.preventDefault(); *@
-@*       e.stopPropagation(); *@
-@*        *@
-@*       $.get("/Manager/CreateRoomPartial", function (roomPartial) { *@
-@*           let div = $('<div id="' + "roomPartialsDiv" + roomI + '"></div>'); *@
-@*           div.append('<div></div>').append(roomPartial); *@
-@*            *@
-@*           $.get("/Manager/CreateRoomInfoPartial", function (infoPartial) { *@
-@*                 div.append('<div></div>').append(infoPartial) *@
-@*             }); *@
-@*            *@
-@*           $("#createRoomContainer") *@
-@*           .append(div); *@
-@*            *@
-@*           roomI++; *@
-@*       }); *@
-@*     }) *@
-@* }); *@
-@* </script> *@

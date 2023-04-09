@@ -28,7 +28,7 @@ public class ManagerService : IManagerService
         var hotel = new Hotel
         {
             Name = model.Name, Description = model.Description, Location = model.Location,
-            Image = result.Uri.ToString(), User = user
+            Image = result.Uri.ToString(), Owner = user
         };
         _context.Hotels.Add(hotel);
         await _context.SaveChangesAsync();

@@ -6,7 +6,6 @@ namespace HotelReservations.Data.Entities
     {
         public int Capacity { get; set; }
         public RoomTypeEnum Type { get; set; }
-        public bool isFree { get; set; } = true; 
         public double AdultBedPrice { get; set; }
         public double KidBedPrice { get; set; }
         public int Number { get; set; }
