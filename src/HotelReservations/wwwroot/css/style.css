@@ -32,6 +32,13 @@ h6 {
   font-family: "Raleway", sans-serif;
 }
 
+@media (max-width: 992px) {
+  .break-flex{
+    
+  }
+}
+
+
 /*--------------------------------------------------------------
 # Back to top button
 --------------------------------------------------------------*/
@@ -1774,7 +1781,8 @@ section {
   margin-bottom: 25px;
 }
 
-.blog .blog-comments .reply-form .btn-primary {
+.blog .blog-comments .reply-form .btn-
+{
   border-radius: 4px;
   padding: 10px 20px;
   border: 0;

@@ -11,5 +11,6 @@ namespace HotelReservations.Data.Entities
         public string? Email { get; set; }
         public bool? IsAdult { get; set; }
         public IEnumerable<Hotel>? Hotels { get; set; }
+
     }
 }

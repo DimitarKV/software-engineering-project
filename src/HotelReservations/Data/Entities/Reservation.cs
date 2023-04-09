@@ -1,4 +1,4 @@
-﻿namespace HotelReservations.Data.Entities
+namespace HotelReservations.Data.Entities
 {
     public class Reservation : Entity<int>
     {
@@ -11,3 +11,4 @@
         public double Price { get; set; }
     }
 }
+
