@@ -12,7 +12,7 @@
 
         @* @Html.ActionLink("Reserve", "Reserve", "Hotel", @Model, new { @class = "btn btn-primary" }) *@
 
-        <form asp-action="Reserve" asp-controller="Hotel">
+        <form asp-action="BookDetails" asp-controller="Hotel">
             <input asp-for="@Model.Hotel.Id" hidden/>
             <input asp-for="@Model.Hotel.Description" hidden/>
             <input asp-for="@Model.Hotel.Image" hidden/>

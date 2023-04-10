@@ -4,7 +4,7 @@
     ViewData["Title"] = "Reserve Page";
 }
 
-<form class="row m-5">
+<form class="row m-5" asp-action="BookHotel" asp-controller="Hotel">
     <div class="container-fluid">
         <div class="d-lg-flex break-flex row">
             <div class="col-lg-1"></div>
@@ -31,7 +31,9 @@
                     <img id="image" src="@Model.Hotel.Image" alt="Hotel image" class="card-img-top" width="200" height="200">
                 </div>
             </div>
+
             <div class="col-lg-2 my-lg-5"></div>
+
             <div class="col-lg-4 my-3">
                 <h2 class="text-center">Personal info</h2>
                 <div class="form-group my-3">
@@ -56,6 +58,11 @@
                 <h4 class="text-center">Reservation form</h4>
 
                 <div class="input-group mb-3">
+                    <span class="input-group-text">Date</span>
+                    <input asp-for="Properties.DateFrom" type="date" value="@Model.Properties.DateFrom.Date.ToString("yyyy-MM-dd")" class="form-control">
+                </div>
+
+                <div class="input-group mb-3">
                     <span class="input-group-text">Duration</span>
                     <input asp-for="Properties.Duration" type="number" min="1" value="@Model.Properties.Duration" class="form-control">
                 </div>
@@ -64,15 +71,20 @@
                     <span class="input-group-text">Number of people</span>
                     <input asp-for="Properties.Capacity" type="number" min="1" value="@Model.Properties.Capacity" class="form-control">
                 </div>
-                <button type="submit" class="btn btn-primary">Reserve</button>
-                <script type="text/javascript">
-                       
-                </script>
 
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Destination</span>
+                    <input asp-for="Properties.Destination" type="text" value="@Model.Properties.Destination" class="form-control">
+                </div>
+
+                <input asp-for="Hotel.Id" hidden/>
+                <input asp-for="Hotel.Image" hidden/>
+                <input asp-for="User.UserName" hidden/>
+
+
+                <button type="submit" class="btn btn-primary">Reserve</button>
             </div>
             <div class="col-lg-1"></div>
-
         </div>
-
     </div>
 </form>
