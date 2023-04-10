@@ -1,4 +1,4 @@
-﻿@model List<HotelReservations.Models.RoomModel>
+﻿@model List<HotelReservations.ViewModels.ManagerRoomViewModel>
 
 @{
     ViewData["Title"] = "Room information";
@@ -6,61 +6,43 @@
 <div class="container-fluid">
     <div class="row mx-3 my-4">
         <h2 class="text-center my-3">Room Availability table</h2>
-        <table class="table">
+        <table class="table" style="table-layout: fixed;">
             <thead>
             <tr>
-                <th scope="col">Room Number</th>
-                <th scope="col">D</th>
-                <th scope="col">D</th>
-                <th scope="col">D</th>
-                <th scope="col">D</th>
-                <th scope="col">D</th>
-                <th scope="col">D</th>
-                <th scope="col">D</th>
-                <th scope="col">D</th>
-                <th scope="col">D</th>
-                <th scope="col">D</th>
-                <th scope="col">D</th>
-                <th scope="col">D</th>
-                <th scope="col">D</th>
-                <th scope="col">D</th>
+                <th scope="col" colspan="2">Room Number</th>
+                @for (int i = 0; i < 14; i++)
+                {
+                    <th scope="col" colspan="2">@DateTime.Now.AddDays(i).ToString("dd.MM")</th>
+                }
             </tr>
             </thead>
             <tbody>
             @foreach (var kirech in Model)
             {
                 <tr>
-                    <td>@kirech.Number</td>
-                    <td class="bg-danger"></td>
-                    <td class="bg-success"></td>
-                    <td class="bg-danger"></td>
-                    <td class="bg-success"></td>
-                    <td class="bg-danger"></td>
-                    <td class="bg-success"></td>
-                    <td class="bg-danger"></td>
-                    <td class="bg-success"></td>
-                    <td class="bg-danger"></td>
-                    <td class="bg-success"></td>
-                    <td class="bg-danger"></td>
-                    <td class="bg-success"></td>
-                    <td class="bg-danger"></td>
-                    <td class="bg-success"></td>
+                    <td colspan="2">@kirech.Number</td>
+
+                    @for (int i = 0; i < 28; i++)
+                    {
+                        var target = DateTime.Today.AddHours(6 + i * 12);
+                        var targetedReservation = kirech.Reservations.FirstOrDefault(r => target > r.ArrivalDate && target < r.DepartureDate);
+
+                        if (targetedReservation is null)
+                        {
+                            <td class="bg-success"></td>
+                        } else if ((target - targetedReservation.ArrivalDate).TotalHours <= 12)
+                        {
+                            <td class="bg-warning">@targetedReservation.ClientFirstName</td>
+                        }
+                        else
+                        {
+                            <td class="bg-danger"></td>
+
+                        }
+                    }
+
                 </tr>
             }
-            <tr>
-                <td>Number</td>
-                <td class="bg-danger"></td>
-                <td class="bg-success" colspan="2"></td>
-                <td class="bg-danger"></td>
-                <td class="bg-success"></td>
-                <td class="bg-danger"></td>
-                <td class="bg-success"></td>
-                <td class="bg-danger" colspan="3"></td>
-                <td class="bg-success"></td>
-                <td class="bg-danger"></td>
-                <td class="bg-success"></td>
-                <td class="bg-danger"></td>
-            </tr>
             </tbody>
         </table>
     </div>

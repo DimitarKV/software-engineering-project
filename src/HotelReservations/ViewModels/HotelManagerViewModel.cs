@@ -2,7 +2,7 @@
 
 namespace HotelReservations.ViewModels;
 
-public class HotelViewModelManager
+public class HotelManagerViewModel
 {
     public string Name { get; set; }
     

@@ -27,7 +27,7 @@ namespace HotelReservations.Controllers
             _mapper = mapper;
             _managerService = managerService;
         }
-        
+
         [HttpGet]
         public IActionResult CreateHotel()
         {
@@ -49,13 +49,13 @@ namespace HotelReservations.Controllers
             await _managerService.CreateHotelAsync(model, username!);
             return RedirectToAction("Index", "Home");
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> CreateRoom([FromForm] CreateRoomModel model)
         {
             var username = User.Identity!.Name;
             await _managerService.CreateRoomAsync(model);
-            
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -63,16 +63,19 @@ namespace HotelReservations.Controllers
         {
             var hotelsViewModel = await _context.Hotels
                 .Include(h => h.Rooms)
-                .Select(h => _mapper.Map<HotelViewModelManager>(h))
+                .Select(h => _mapper.Map<HotelManagerViewModel>(h))
                 .ToListAsync();
 
             return View(hotelsViewModel);
         }
 
-        public async Task<IActionResult> ShowRoomInfo(HotelViewModelManager hotel)
+        public async Task<IActionResult> ShowRoomInfo(HotelManagerViewModel hotel)
         {
-            var hotelDb = _context.Hotels.Include(h => h.Rooms).FirstOrDefault(h => h.Name == hotel.Name);
-            var model = hotelDb.Rooms.Select(r => _mapper.Map<RoomModel>(r)).ToList();
+            var hotelDb = _context.Hotels.Include(h => h.Rooms)!.ThenInclude(r => r.Reservations).ThenInclude(r => r.Client)
+                .FirstOrDefault(h => h.Name == hotel.Name);
+
+            var model = hotelDb!.Rooms!.Select(r => _mapper.Map<ManagerRoomViewModel>(r)).ToList();
+
             return View(model);
         }
     }

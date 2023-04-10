@@ -22,10 +22,6 @@ public class HotelService : IHotelService
 
     public async Task<List<HotelModel>> GetFreeHotels(ReservationQueryModel queryModel)
     {
-        var reservationArrivalDate = queryModel.DateFrom;
-        var reservationDepartureDate = queryModel.DateFrom.AddDays(queryModel.Duration);
-        var reservationTotalSpan = (reservationDepartureDate - reservationArrivalDate);
-
         var hotels = await _context.Hotels
             .Where(h => h.Location == queryModel.Destination)
             .Include(h => h.Rooms)!
@@ -35,19 +31,8 @@ public class HotelService : IHotelService
         var filteredHotels = hotels.Where(h =>
                 h.Rooms!.Any(r =>
                     r.Reservations.Any(rv =>
-                    {
-                        var currentReservationArrivalDate = rv.ArrivalDate;
-                        var currentReservationDepartureDate = rv.DepartureDate;
-                        var currentReservationTotalSpan =
-                            (currentReservationDepartureDate - currentReservationArrivalDate);
-
-                        var span = currentReservationTotalSpan + reservationTotalSpan;
-
-                        return span.Ticks > (new DateTime(Math.Max(reservationDepartureDate.Ticks,
-                                                 currentReservationDepartureDate.Ticks)) -
-                                             new DateTime(Math.Min(reservationArrivalDate.Ticks,
-                                                 currentReservationArrivalDate.Ticks))).Ticks;
-                    }) == false))
+                        SpansOverlap(rv.ArrivalDate, rv.DepartureDate, queryModel.DateFrom, queryModel.DateTo)) ==
+                    false))
             .Select(h => _mapper.Map<HotelModel>(h)).ToList();
 
         return filteredHotels;
@@ -62,8 +47,9 @@ public class HotelService : IHotelService
                                                     !r.Reservations.Any(rs =>
                                                         SpansOverlap(rs.ArrivalDate, rs.DepartureDate,
                                                             model.Properties.DateFrom,
-                                                            model.Properties.DateFrom.AddDays(model.Properties
-                                                                .Duration))));
+                                                            model.Properties.DateTo)
+                                                    )
+        );
 
         if (room is null)
             return;
@@ -73,8 +59,8 @@ public class HotelService : IHotelService
 
         reservation.Client = user;
         reservation.Room = room;
-        reservation.ArrivalDate = model.Properties.DateFrom;
-        reservation.DepartureDate = model.Properties.DateFrom.AddDays(model.Properties.Duration);
+        reservation.ArrivalDate = model.Properties.DateFrom.AddHours(14);
+        reservation.DepartureDate = model.Properties.DateFrom.AddDays(model.Properties.Duration).AddHours(12);
         reservation.Price = room.AdultBedPrice;
         reservation.isAllInclusive = true;
         reservation.isBreakfastIncluded = true;

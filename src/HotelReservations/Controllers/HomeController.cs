@@ -30,6 +30,8 @@ public class HomeController : Controller
     [HttpPost]
     public async Task<IActionResult> Index(HomePageModel model)
     {
+        model.QueryForm!.DateFrom = model.QueryForm.DateFrom.AddHours(14);
+        model.QueryForm.DateTo = model.QueryForm.DateFrom.AddDays(model.QueryForm.Duration).AddHours(-2);
         var hotels = await _hotelService.GetFreeHotels(model.QueryForm);
         return View("Index", new HomePageModel() {Hotels = hotels, QueryForm = model.QueryForm});
     }
