@@ -1,20 +1,20 @@
-﻿@using HotelReservations.ViewModels
-@model List<HotelReservations.ViewModels.HotelViewModel>
+﻿@using HotelReservations.Models
+@model HomePageModel
 
 <div class="container-fluid">
     <div class="row mx-3 my-4">
         <div class="col-xl-3">  
         </div>
         <div class="col-xl-4">
-            <partial name="_HotelsSearchForm" model="new ReservationQueryViewModel()"/>
+            <partial name="_HotelsSearchForm" model="@Model"/>
         </div>
         <div class="col-xl-5"></div>
     </div>
     <div class="row mx-3 my-4">
         <div class="d-flex justify-content-around flex-wrap">
-            @foreach (var kirech in @Model)
+            @foreach (var kirech in @Model.Hotels)
             {
-                    <partial name="_HotelInfoTemplate" model="kirech"/>
+                    <partial name="_HotelInfoTemplate" model="new ReserveModel() {Hotel = kirech, Properties = Model.QueryForm}"/>
             }
         </div>
     </div>

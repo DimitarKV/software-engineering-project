@@ -1,46 +1,39 @@
-﻿@model HotelReservations.ViewModels.ReserveViewModel
+﻿@model HotelReservations.Models.ReserveModel
 
 @{
     ViewData["Title"] = "Reserve Page";
 }
 
-<div class="container-fluid">
-    <div class="d-lg-flex break-flex">
-        <div class="col-lg-1"></div>
-        <div class="col-lg-4 my-3">
-            <h2 class="text-center">Reserve page</h2>
-            <div class="form-group my-3">
-                <label for="name" asp-for="@Model.Hotel.Name">Hotel name: </label>
-                <input type="text" asp-for="@Model.Hotel.Name" id="name" class="form-control" value="@Model.Hotel.Name" readonly="readonly">
+<form class="row m-5">
+    <div class="container-fluid">
+        <div class="d-lg-flex break-flex row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-4 my-3">
+                <h2 class="text-center">Reserve page</h2>
+                <div class="form-group my-3">
+                    <label for="name" asp-for="@Model.Hotel.Name">Hotel name: </label>
+                    <input type="text" asp-for="@Model.Hotel.Name" id="name" class="form-control" value="@Model.Hotel.Name" readonly="readonly">
+                </div>
+                <div class="form-group my-3">
+                    <label for="description" asp-for="@Model.Hotel.Description">Hotel description: </label>
+                    <textarea asp-for="@Model.Hotel.Description" id="description" class="form-control" value="@Model.Hotel.Description" cols="30" rows="4" readonly="readonly"></textarea>
+                </div>
+                <div class="form-group my-3">
+                    <label for="location" asp-for="@Model.Hotel.Location">Hotel location: </label>
+                    <input type="text" asp-for="@Model.Hotel.Location" id="location" class="form-control" value="@Model.Hotel.Location" readonly="readonly">
+                </div>
+                <div class="form-group my-3">
+                    <label for="roomCount" asp-for="@Model.Hotel.RoomCount">Number of rooms in the hotel: </label>
+                    <input type="number" asp-for="@Model.Hotel.RoomCount" id="roomCount" class="form-control" value="@Model.Hotel.RoomCount" readonly="readonly">
+                </div>
+                <div class="form-group my-3">
+                    <label for="image" asp-for="@Model.Hotel.Image">Hotel image: </label>
+                    <img id="image" src="@Model.Hotel.Image" alt="Hotel image" class="card-img-top" width="200" height="200">
+                </div>
             </div>
-            <div class="form-group my-3">
-                <label for="description" asp-for="@Model.Hotel.Description">Hotel description: </label>
-                <textarea asp-for="@Model.Hotel.Description" id="description" class="form-control" value="@Model.Hotel.Description" cols="30" rows="4" readonly="readonly"></textarea>
-            </div>
-            <div class="form-group my-3">
-                <label for="location" asp-for="@Model.Hotel.Location">Hotel location: </label>
-                <input type="text" asp-for="@Model.Hotel.Location" id="location" class="form-control" value="@Model.Hotel.Location" readonly="readonly">
-            </div>
-            <div class="form-group my-3">
-                <label for="roomCount" asp-for="@Model.Hotel.RoomCount">Number of rooms in the hotel: </label>
-                <input type="number" asp-for="@Model.Hotel.RoomCount" id="roomCount" class="form-control" value="@Model.Hotel.RoomCount" readonly="readonly">
-            </div>
-            <div class="form-group my-3">
-                <label for="image" asp-for="@Model.Hotel.Image">Hotel image: </label>
-                <img id="image" src="@Model.Hotel.Image" alt="Hotel image" class="card-img-top" width="200" height="200">
-            </div>
-        </div>
-        <div class="col-lg-2 my-lg-5"></div>
-        <div class="col-lg-4 my-3">
-            <h2 class="text-center">Personal info</h2>
-            @if (!Context.User.Identity!.IsAuthenticated)
-            {
-                <h4 class="text-center">Register or login to reserve!</h4>
-                @Html.ActionLink("Register", "Register", "Authentication", "", new { @class = "btn btn-primary" })
-                @Html.ActionLink("Login", "Login", "Authentication", "", new { @class = "btn btn-warning" })
-            }
-            else
-            {
+            <div class="col-lg-2 my-lg-5"></div>
+            <div class="col-lg-4 my-3">
+                <h2 class="text-center">Personal info</h2>
                 <div class="form-group my-3">
                     <label for="firstName" asp-for="@Model.User.FirstName">First Name: </label>
                     <input type="text" asp-for="@Model.User.FirstName" id="firstName" class="form-control" value="@Model.User.FirstName" readonly="readonly">
@@ -60,28 +53,26 @@
                 <br>
                 <br>
                 <br>
-                <form>
-                    <h4 class="text-center">Reservation form</h4>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">Arrival date</span>
-                        <input type="date" class="form-control"
-                               min="@DateTime.Now.ToString("yyyy-MM-dd")" id="dateFrom">
-                    </div>
+                <h4 class="text-center">Reservation form</h4>
 
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">Departure date</span>
-                        <input type="date"
-                               min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")"
-                               class="form-control" id="dateTo">
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">Number of people</span>
-                        <input type="number" min="1" class="form-control">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Reserve</button>
-                </form>
-            }
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Duration</span>
+                    <input asp-for="Properties.Duration" type="number" min="1" value="@Model.Properties.Duration" class="form-control">
+                </div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Number of people</span>
+                    <input asp-for="Properties.Capacity" type="number" min="1" value="@Model.Properties.Capacity" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">Reserve</button>
+                <script type="text/javascript">
+                       
+                </script>
+
+            </div>
+            <div class="col-lg-1"></div>
+
         </div>
-        <div class="col-lg-1"></div>
+
     </div>
-</div>
+</form>

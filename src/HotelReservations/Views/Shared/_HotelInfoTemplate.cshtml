@@ -1,15 +1,33 @@
-﻿@model HotelReservations.ViewModels.HotelViewModel
+﻿@model HotelReservations.Models.ReserveModel
 
 <div class="card m-3" style="width: 30rem;">
-    <img src="@Model.Image" class="card-img-top" alt="Hotel Image">
+    <img src="@Model.Hotel.Image" class="card-img-top" alt="Hotel Image">
     <div class="card-body">
-        <h3 class="card-title">@Model.Name</h3>
-        <p class="card-text">@Model.Description</p>
+        <h3 class="card-title">@Model.Hotel.Name</h3>
+        <p class="card-text">@Model.Hotel.Description</p>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">Location: @Model.Location</li>
-            <li class="list-group-item">Rooms: @Model.RoomCount</li>
+            <li class="list-group-item">Location: @Model.Hotel.Location</li>
+            <li class="list-group-item">Rooms: @Model.Hotel.RoomCount</li>
         </ul>
-        @Html.ActionLink("Reserve", "Reserve", "Hotel", @Model, new { @class = "btn btn-primary" })
+
+        @* @Html.ActionLink("Reserve", "Reserve", "Hotel", @Model, new { @class = "btn btn-primary" }) *@
+
+        <form asp-action="Reserve" asp-controller="Hotel">
+            <input asp-for="@Model.Hotel.Id" hidden/>
+            <input asp-for="@Model.Hotel.Description" hidden/>
+            <input asp-for="@Model.Hotel.Image" hidden/>
+            <input asp-for="@Model.Hotel.Location" hidden/>
+            <input asp-for="@Model.Hotel.Name" hidden/>
+            <input asp-for="@Model.Hotel.RoomCount" hidden/>
+            
+            <input asp-for="@Model.Properties.Capacity" hidden/>
+            <input asp-for="@Model.Properties.Destination" hidden/>
+            <input asp-for="@Model.Properties.Duration" hidden/>
+            <input asp-for="@Model.Properties.DateFrom" hidden/>
+
+            <button type="submit">Reserve</button>
+        </form>
+        
         @* <a href="/Hotel/Reserve" class="btn btn-primary" asp-all-route-data="">Reserve</a> *@
     </div>
 </div>

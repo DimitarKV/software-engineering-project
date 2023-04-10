@@ -1,24 +1,34 @@
-﻿@model HotelReservations.ViewModels.ReservationQueryViewModel
+﻿@model HotelReservations.Models.HomePageModel
 
 <div class="search-form">
-    <form method="post" class="mb-3 p-3 rounded bg-secondary" id="form">
+    <form method="post" asp-controller="Home" class="mb-3 p-3 rounded bg-secondary" id="form">
         <div class="input-group mb-3 col-12">
             <span class="input-group-text">Choose destination</span>
-            <input type="text" class="form-control" asp-for="Destination" id="destination">
+            <input type="text" class="form-control" asp-for="QueryForm.Destination" id="destination">
         </div>
 
         <div class="input-group mb-3">
             <span class="input-group-text">Choose date from</span>
-            <input type="date" asp-for="DateFrom" class="form-control"
-                   min="@DateTime.Now.ToString("yyyy-MM-dd")" id="dateFrom">
+            <input type="date" asp-for="QueryForm.DateFrom" 
+                   class="form-control"
+                   min="@DateTime.Now.ToString("yyyy-MM-dd")" 
+                   id="dateFrom">
         </div>
 
         <div class="input-group mb-3">
-            <span class="input-group-text">Choose date to</span>
-            <input type="date" asp-for="DateTo"
-                   min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")"
-                   class="form-control" id="dateTo">
+            <span class="input-group-text">Choose duration</span>
+            <input type="number" asp-for="QueryForm.Duration"
+                   min="1"
+                   class="form-control" id="duration">
         </div>
+        
+        <div class="input-group mb-3">
+                    <span class="input-group-text">Choose capacity</span>
+                    <input type="number" asp-for="QueryForm.Capacity"
+                           min="1"
+                           class="form-control" id="capacity">
+                </div>
+        
         <button type="submit" class="col-12 btn btn-primary">Submit</button>
     </form>
 </div>

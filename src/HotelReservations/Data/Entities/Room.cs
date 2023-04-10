@@ -11,6 +11,11 @@ namespace HotelReservations.Data.Entities
         public int Number { get; set; }
         public Hotel Hotel { get; set; }
 
-        // public List<Reservation> Reservations { get; set; }
+        public List<Reservation> Reservations { get; set; }
+
+        public Room()
+        {
+            Reservations = new List<Reservation>();
+        }
     }
 }

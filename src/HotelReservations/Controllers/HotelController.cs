@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HotelReservations.Data.Entities;
+using HotelReservations.Models;
 using HotelReservations.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,18 +18,13 @@ public class HotelController : Controller
         _mapper = mapper;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> Reserve(HotelViewModel model)
+    [HttpPost]
+    public async Task<IActionResult> Reserve(ReserveModel model)
     {
         bool loggedIn = HttpContext.User.Identity!.IsAuthenticated;
-        var viewModel = new ReserveViewModel();
         if (!loggedIn)
         {
-            viewModel = new ReserveViewModel
-            {
-                Hotel = model,
-                User = new UserViewModel()
-            };
+            model.User = new UserViewModel();
         }
         else
         {
@@ -40,13 +36,9 @@ public class HotelController : Controller
                 viewUser = _mapper.Map<UserViewModel>(user);
             }
 
-            viewModel = new ReserveViewModel
-            {
-                Hotel = model,
-                User = viewUser
-            };
+            model.User = viewUser;
         }
 
-        return View(viewModel);
+        return View(model);
     }
 }
