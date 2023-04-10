@@ -1,21 +1,43 @@
 ﻿@using HotelReservations.ViewModels
 @model List<HotelReservations.ViewModels.HotelViewModel>
 
-<div class="container-fluid">
-    <div class="row mx-3 my-4">
-        <div class="col-xl-3">  
+<div class="container-fluid p-0">
+    @if (!Context.User.Identity!.IsAuthenticated)
+    {
+        <div style="background: url('img/back.jpg') no-repeat center center fixed;-webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height: 80vh;">
+            <div style="background-color: rgba(0, 0, 0, 0.8); height: 100%;" class="p-5">
+                <h1 class="text-center mb-5 text-white">Welcome to Balterion<span class="text-danger">.</span></h1>
+                <div style="margin: 0;
+                                                                   position: absolute;
+                                                                   top: 50%;
+                                                                   left: 50%;
+                                                                   -ms-transform: translate(-50%, -50%);
+                                                                   transform: translate(-50%, -50%);">
+                    <h4 class="text-center my-3 text-white">Use our free of charge platform</h4>
+                    <h5 class="text-center my-4">
+                        <a href="/Authentication/Register" class="btn get-started-btn m-lg-0">Register</a><a href="/Authentication/Login" class="btn get-started-btn">Sign in</a>
+                    </h5>
+                </div>
+            </div>
         </div>
-        <div class="col-xl-4">
-            <partial name="_HotelsSearchForm" model="new ReservationQueryViewModel()"/>
+    }
+    else
+    {
+        <div class="row mx-3 my-4">
+            <div class="col-xl-3">
+            </div>
+            <div class="col-xl-4">
+                <partial name="_HotelsSearchForm" model="new ReservationQueryViewModel()"/>
+            </div>
+            <div class="col-xl-5"></div>
         </div>
-        <div class="col-xl-5"></div>
-    </div>
-    <div class="row mx-3 my-4">
-        <div class="d-flex justify-content-around flex-wrap">
-            @foreach (var kirech in @Model)
-            {
+        <div class="row mx-3 my-4">
+            <div class="d-flex justify-content-around flex-wrap">
+                @foreach (var kirech in Model)
+                {
                     <partial name="_HotelInfoTemplate" model="kirech"/>
-            }
+                }
+            </div>
         </div>
-    </div>
+    }
 </div>
