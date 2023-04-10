@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
+using HotelReservations.Data.Entities;
 using HotelReservations.Data.Persistence;
 using HotelReservations.Helpers.Cloudinary;
 using HotelReservations.Models;
 using HotelReservations.Services.ManagerService;
+using HotelReservations.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelReservations.Controllers
 {
@@ -54,6 +57,23 @@ namespace HotelReservations.Controllers
             await _managerService.CreateRoomAsync(model);
             
             return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> Panel()
+        {
+            var hotelsViewModel = await _context.Hotels
+                .Include(h => h.Rooms)
+                .Select(h => _mapper.Map<HotelViewModelManager>(h))
+                .ToListAsync();
+
+            return View(hotelsViewModel);
+        }
+
+        public async Task<IActionResult> ShowRoomInfo(HotelViewModelManager hotel)
+        {
+            var hotelDb = _context.Hotels.Include(h => h.Rooms).FirstOrDefault(h => h.Name == hotel.Name);
+            var model = hotelDb.Rooms.Select(r => _mapper.Map<RoomModel>(r)).ToList();
+            return View(model);
         }
     }
 }

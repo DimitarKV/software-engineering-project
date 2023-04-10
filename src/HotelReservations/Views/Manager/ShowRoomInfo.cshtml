@@ -1,0 +1,67 @@
+﻿@model List<HotelReservations.Models.RoomModel>
+
+@{
+    ViewData["Title"] = "Room information";
+}
+<div class="container-fluid">
+    <div class="row mx-3 my-4">
+        <h2 class="text-center my-3">Room Availability table</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Room Number</th>
+                <th scope="col">D</th>
+                <th scope="col">D</th>
+                <th scope="col">D</th>
+                <th scope="col">D</th>
+                <th scope="col">D</th>
+                <th scope="col">D</th>
+                <th scope="col">D</th>
+                <th scope="col">D</th>
+                <th scope="col">D</th>
+                <th scope="col">D</th>
+                <th scope="col">D</th>
+                <th scope="col">D</th>
+                <th scope="col">D</th>
+                <th scope="col">D</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var kirech in Model)
+            {
+                <tr>
+                    <td>@kirech.Number</td>
+                    <td class="bg-danger"></td>
+                    <td class="bg-success"></td>
+                    <td class="bg-danger"></td>
+                    <td class="bg-success"></td>
+                    <td class="bg-danger"></td>
+                    <td class="bg-success"></td>
+                    <td class="bg-danger"></td>
+                    <td class="bg-success"></td>
+                    <td class="bg-danger"></td>
+                    <td class="bg-success"></td>
+                    <td class="bg-danger"></td>
+                    <td class="bg-success"></td>
+                    <td class="bg-danger"></td>
+                    <td class="bg-success"></td>
+                </tr>
+            }
+            <tr>
+                <td>Number</td>
+                <td class="bg-danger"></td>
+                <td class="bg-success" colspan="2"></td>
+                <td class="bg-danger"></td>
+                <td class="bg-success"></td>
+                <td class="bg-danger"></td>
+                <td class="bg-success"></td>
+                <td class="bg-danger" colspan="3"></td>
+                <td class="bg-success"></td>
+                <td class="bg-danger"></td>
+                <td class="bg-success"></td>
+                <td class="bg-danger"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

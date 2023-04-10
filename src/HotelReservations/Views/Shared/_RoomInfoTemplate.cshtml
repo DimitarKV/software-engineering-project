@@ -1,0 +1,12 @@
+﻿@model HotelReservations.Models.RoomModel
+
+<div class="card" style="width: 30rem;">
+    <div class="card-header">Room: @Model.Number</div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Capacity: @Model.Capacity</li>
+        <li class="list-group-item">Type: @Model.Type</li>
+        <li class="list-group-item">Adult bed price: @Model.AdultBedPrice</li>
+        <li class="list-group-item">Kid bed price: @Model.KidBedPrice</li>
+        <li class="list-group-item">Hotel: @Model.Hotel.Name</li>
+    </ul>
+</div>

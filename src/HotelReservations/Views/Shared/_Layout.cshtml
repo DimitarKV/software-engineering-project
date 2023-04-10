@@ -27,7 +27,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
     <!-- Template Main CSS File -->
-    <link href="/css/style.css" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet">
     <link href="~/HotelReservations.styles.css" rel="stylesheet"/>
 
 
@@ -63,6 +63,11 @@
             if (Context.User.IsInRole("Admin"))
             {
                 <a asp-controller="Admin" asp-action="Panel" class="get-started-btn scrollto">Admin</a>
+            }
+            
+            if (Context.User.IsInRole("Manager"))
+            {
+                <a asp-controller="Manager" asp-action="Panel" class="get-started-btn scrollto">Panel</a>
             }
 
             if (Context.User.IsInRole("Manager") || Context.User.IsInRole("Admin"))

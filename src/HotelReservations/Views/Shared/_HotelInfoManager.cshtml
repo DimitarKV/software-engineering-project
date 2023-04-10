@@ -1,0 +1,14 @@
+﻿@model HotelReservations.ViewModels.HotelViewModelManager
+
+<div class="card m-3" style="width: 30rem;">
+    <img src="@Model.Image" class="card-img-top" alt="Hotel Image">
+    <div class="card-body">
+        <h3 class="card-title">@Model.Name</h3>
+        <p class="card-text">@Model.Description</p>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Location: @Model.Location</li>
+            <li class="list-group-item">Rooms: @Model.Rooms.Count</li>
+        </ul>
+        @Html.ActionLink("Rooms", "ShowRoomInfo", "Manager", @Model, new { @class = "btn btn-warning" })
+    </div>
+</div>
